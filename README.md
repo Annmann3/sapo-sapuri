@@ -43,3 +43,6 @@ ER図作成 2/6
 MVP 2/27
 β版をRUNTEQ内リリース 2/27）
 本番リリース 3/6
+
+## 画面遷移図
+[figma](https://www.figma.com/file/x7phXfoRpiI2EXEKmAXMuP/%E3%81%95%E3%81%BD%E3%82%B5%E3%83%97%E3%83%AA?node-id=1%3A61)
