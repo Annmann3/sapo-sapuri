@@ -46,3 +46,6 @@ MVP 2/27
 
 ## 画面遷移図
 [figma](https://www.figma.com/file/x7phXfoRpiI2EXEKmAXMuP/%E3%81%95%E3%81%BD%E3%82%B5%E3%83%97%E3%83%AA?node-id=1%3A61)
+
+## ER図
+[ER図](https://drive.google.com/file/d/1LphrAROKuTU_wjY3UHpLnmOMEw0ZKmvf/view?usp=sharing)
