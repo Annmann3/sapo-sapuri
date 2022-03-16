@@ -33,6 +33,14 @@ module SapoSapuri
     # config.eager_load_paths << Rails.root.join("extras")
 
     # Don't generate system test files.
-    config.generators.system_tests = nil
+    config.generators do |g|
+      g.skip_routes true
+      g.assets false
+      g.helper false
+      g.test_framework  :rspec,
+      controller_spces:  false,
+      view_specs:        false,
+      routing_spec:      false
+    end
   end
 end
