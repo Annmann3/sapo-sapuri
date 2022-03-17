@@ -8,7 +8,7 @@
         <div class="hidden lg:block lg:ml-4">
           <% if current_user %>
           <%= link_to 'グラフページ', '#' %>
-          <%= link_to 'ログアウト', destroy_user_session_path %> 
+          <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %> 
             <%= link_to 'マイページ', '#' %>
           <% else %>
             <%= link_to 'ログイン', new_user_session_path  %>
