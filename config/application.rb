@@ -30,13 +30,20 @@ module SapoSapuri
     # in config/environments, which are processed later.
     #
     # config.time_zone = "Central Time (US & Canada)"
+    # I18n設定ファイル
+    config.i18n.default_locale = :ja
+    config.i18n.load_path += Dir[Rails.root.join('config/locales/**/*.{yml,rb}')]
     # config.eager_load_paths << Rails.root.join("extras")
 
     # Don't generate system test files.
     config.generators do |g|
-      g.stylesheets false
+      g.skip_routes true
       g.assets false
       g.helper false
+      g.test_framework  :rspec,
+      controller_spces:  false,
+      view_specs:        false,
+      routing_spec:      false
     end
   end
 end
