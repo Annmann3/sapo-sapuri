@@ -2,13 +2,18 @@
   <div id="app">
     <p>{{ message }}</p>
   </div>
+  <TheChart />
 </template>
 
 <script>
+import TheChart from './packs/components/TheChart'
 export default {
+  components: {
+  TheChart
+  },
   data: function () {
     return {
-      message: "Hello Vue!"
+      message: "Hello Vue and ChartJS!"
     }
   }
 }
