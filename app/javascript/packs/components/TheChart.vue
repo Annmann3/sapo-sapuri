@@ -1,5 +1,7 @@
 <template>
-  <Line :chart-data="chartData" />
+  <div class="flex">
+    <Line :chart-data="chartData" />
+  </div>
 </template>
 <script>
 import 'chart.js/auto'
