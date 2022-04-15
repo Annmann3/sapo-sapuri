@@ -1,14 +1,13 @@
-<nav class="fixed top-0 left-0 z-40 w-full h-16 transition duration-500 ease-in-out bg-yellow-200 shadow-sm lg:shadow-none lg:bg-transparent">
-  <div class="relative z-50 max-w-screen-xl px-2 mx-auto bg-yellow-200 shadow-sm sm:px-4 lg:px-8 lg:shadow-none lg:bg-transparent"
-    <div class="flex items-center px-2 lg:px-0">
+<nav class="fixed top-0 left-0 z-40 w-full h-16 transition duration-500 ease-in-out bg-yellow-200 shadow-sm lg:shadow-none">
+  <div class="relative z-50 max-w-screen-xl px-2 mx-auto bg-yellow-200 shadow-sm sm:px-4 lg:px-8 lg:shadow-none">
       <div class="relative z-50 flex items-center justify-between h-16">
         <div class="flex items-center flex-shrink-0 nuxt-link-exact-active nuxt-link-active">
           <%= link_to 'Sapo-Sapuri', '/' %>
         </div>
         <div class="hidden lg:block lg:ml-4">
           <% if current_user %>
-          <%= link_to 'グラフページ', '#' %>
-          <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %> 
+            <%= link_to 'グラフページ', '#' %>
+            <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %> 
             <%= link_to 'マイページ', '#' %>
           <% else %>
             <%= link_to 'ログイン', new_user_session_path  %>
@@ -16,6 +15,6 @@
           <% end %>
         </div>
       </div>
-    </div>
   </div>
 </nav>
+
