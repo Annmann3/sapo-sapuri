@@ -10,18 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_16_141542) do
+ActiveRecord::Schema.define(version: 2022_05_16_094143) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "nutrients", force: :cascade do |t|
     t.string "name", limit: 30, null: false
-    t.integer "graph_constant", null: false
     t.integer "graph_type", null: false
     t.string "dosage_recommendation", limit: 120, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.float "vdf"
+    t.float "ke"
+    t.float "ka"
+    t.string "default_unit"
     t.index ["name"], name: "index_nutrients_on_name", unique: true
   end
 
