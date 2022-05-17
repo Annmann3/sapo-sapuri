@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_16_094143) do
+ActiveRecord::Schema.define(version: 2022_05_17_082028) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "dosages", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "nutrient_id"
+    t.integer "dosage", null: false
+    t.datetime "dosage_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["nutrient_id"], name: "index_dosages_on_nutrient_id"
+    t.index ["user_id"], name: "index_dosages_on_user_id"
+  end
 
   create_table "nutrients", force: :cascade do |t|
     t.string "name", limit: 30, null: false
@@ -42,4 +53,6 @@ ActiveRecord::Schema.define(version: 2022_05_16_094143) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "dosages", "nutrients"
+  add_foreign_key "dosages", "users"
 end
