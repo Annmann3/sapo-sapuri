@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import TheChart from './packs/components/TheChart'
+import TheChart from './components/TheChart'
 export default {
   components: {
   TheChart
