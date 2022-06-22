@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 2022_05_17_082028) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "dosages", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "nutrient_id"
+    t.integer "dosage", null: false
+    t.datetime "dosage_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["nutrient_id"], name: "index_dosages_on_nutrient_id"
+    t.index ["user_id"], name: "index_dosages_on_user_id"
+  end
 
   create_table "nutrients", force: :cascade do |t|
     t.string "name", limit: 30, null: false
@@ -21,8 +32,38 @@ ActiveRecord::Schema.define(version: 0) do
     t.string "dosage_recommendation", limit: 120, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "graph_constant"
+    t.float "vdf"
+    t.float "ke"
+    t.float "ka"
+    t.string "default_unit"
     t.index ["name"], name: "index_nutrients_on_name", unique: true
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "provider", default: "email", null: false
+    t.string "uid", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.boolean "allow_password_change", default: false
+    t.datetime "remember_created_at"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
+    t.string "name"
+    t.string "nickname"
+    t.string "image"
+    t.string "email"
+    t.json "tokens"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
+  end
+
+  add_foreign_key "dosages", "nutrients"
+  add_foreign_key "dosages", "users"
 end
