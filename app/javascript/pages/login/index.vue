@@ -7,7 +7,7 @@
   <div class="bg-blue-200 flex">
     <div class="flex-col flex ml-auto mr-auto items-center w-full lg:w-2/3 md:w-3/5">
       <h1 class="font-bold text-2xl my-10 text-white">
-        Login
+        ログイン
       </h1>
       <form
         action=""
@@ -57,7 +57,7 @@
           class="bg-blue-400 py-4 text-center px-17 md:px-12 md:py-4 text-white rounded leading-tight text-xl md:text-base font-sans mt-4 mb-20"
           @click="loginUser"
         >
-          Login
+          ログイン
         </a>
       </form>
     </div>
