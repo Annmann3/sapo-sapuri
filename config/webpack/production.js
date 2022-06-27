@@ -1,5 +1,12 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'production'
 
-const environment = require('./environment')
+const { merge } = require('shakapacker')
+const webpackConfig = require('./base')
 
-module.exports = environment.toWebpackConfig()
+module.exports = merge(webpackConfig, {
+  resolve: {
+    alias: {
+      vue: 'vue/dist/vue.min'
+    }
+  }
+})

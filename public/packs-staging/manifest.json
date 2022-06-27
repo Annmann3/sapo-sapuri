@@ -1,0 +1,24 @@
+{
+  "application.css": "/packs-staging/css/application.css",
+  "application.js": "/packs-staging/js/application.js",
+  "css/application.css.map": "/packs-staging/css/application.css.map",
+  "entrypoints": {
+    "application": {
+      "assets": {
+        "js": [
+          "/packs-staging/js/runtime.js",
+          "/packs-staging/js/vendors-node_modules_rails_activestorage_app_assets_javascripts_activestorage_js-node_modules-ff6247.js",
+          "/packs-staging/js/application.js"
+        ],
+        "css": [
+          "/packs-staging/css/application.css"
+        ]
+      }
+    }
+  },
+  "js/application.js.map": "/packs-staging/js/application.js.map",
+  "js/runtime.js.map": "/packs-staging/js/runtime.js.map",
+  "js/vendors-node_modules_rails_activestorage_app_assets_javascripts_activestorage_js-node_modules-ff6247.js": "/packs-staging/js/vendors-node_modules_rails_activestorage_app_assets_javascripts_activestorage_js-node_modules-ff6247.js",
+  "js/vendors-node_modules_rails_activestorage_app_assets_javascripts_activestorage_js-node_modules-ff6247.js.map": "/packs-staging/js/vendors-node_modules_rails_activestorage_app_assets_javascripts_activestorage_js-node_modules-ff6247.js.map",
+  "runtime.js": "/packs-staging/js/runtime.js"
+}
