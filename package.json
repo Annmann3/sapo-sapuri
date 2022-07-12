@@ -49,5 +49,9 @@
   },
   "browserslist": [
     "defaults"
-  ]
+  ],
+  "devDependencies": {
+    "eslint": "^8.19.0",
+    "eslint-plugin-vue": "^9.2.0"
+  }
 }

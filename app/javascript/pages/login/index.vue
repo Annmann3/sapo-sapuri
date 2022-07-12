@@ -5,13 +5,13 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
   >
   <div class="bg-blue-200 flex">
-    <div class="flex-col flex ml-auto mr-auto items-center w-full lg:w-2/3 md:w-3/5">
+    <div class="flex-col flex ml-auto mr-auto items-center w-full">
       <h1 class="font-bold text-2xl my-10 text-white">
         ログイン
       </h1>
       <form
         action=""
-        class="mt-2 flex flex-col lg:w-1/2 w-8/12"
+        class="mt-2 flex flex-col w-11/12"
       >
         <div class="flex flex-wrap items-stretch w-full mb-4 relative h-15 bg-white items-center rounded mb-6 pr-10">
           <div class="flex -mr-px justify-center w-15 p-4">
