@@ -18,13 +18,16 @@
             <span
               class="flex items-center leading-normal bg-white px-3 border-0 rounded rounded-r-none text-2xl text-gray-600"
             >
-              <i class="fas fa-user-circle" />
+              <i class="fas fa-envelope" />
             </span>
           </div>
+          <label for="email" />
           <input
-            type="text"
+            id="email"
+            v-model="user.email"
+            type="email"
             class="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border-0 h-10 border-grey-light rounded rounded-l-none px-3 self-center relative  font-roboto text-xl outline-none"
-            placeholder="Username"
+            placeholder="email"
           >
         </div>
         <div class="flex flex-wrap items-stretch w-full relative h-15 bg-white items-center rounded mb-4">
@@ -35,7 +38,10 @@
               <i class="fas fa-lock" />
             </span>
           </div>
+          <label for="password" />
           <input
+            id="password"
+            v-model="user.password"
             type="password"
             class="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border-0 h-10 px-3 relative self-center font-roboto text-xl outline-none"
             placeholder="Password"
@@ -52,13 +58,13 @@
           href="#"
           class="text-base text-white text-right font-roboto leading-normal hover:underline mb-6"
         >Forget Password ?</a>
-        <a
-          href="/"
+        <button
+          type="button"
           class="bg-blue-400 py-4 text-center px-17 md:px-12 md:py-4 text-white rounded leading-tight text-xl md:text-base font-sans mt-4 mb-20"
           @click="loginUser"
         >
           ログイン
-        </a>
+        </button>
       </form>
     </div>
   </div>
@@ -69,11 +75,22 @@ import { mapActions } from "vuex"
 
 export default {
   name: "LoginIndex",
+  data() {
+    return {
+      user: {
+        email: '',
+        password: '',
+      }
+    }
+  },
   methods: {
-    ...mapActions('users',["login"]),
+    ...mapActions('users',["signin"]),
     async loginUser() {
+      debugger
       try {
-        await this.login(this.user)
+        await this.signin(this.user)
+        debugger
+        console.log("success")
       } catch (error) {
         console.log(error)
       }

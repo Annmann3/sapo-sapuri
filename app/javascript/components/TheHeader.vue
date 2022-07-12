@@ -17,6 +17,9 @@
             >
               ログイン
             </router-link>
+            <span
+              @click="logout"
+            >ログアウト</span>
           </div>
         </div>
       </nav>
@@ -25,8 +28,21 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 
 export default {
   name: 'TheHeader',
+  methods: {
+    ...mapActions('users',['signout']),
+    async logout() {
+      debugger
+      try {
+        await this.signout()
+        this.$router.push({ path: '/' })
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  }
 }
 </script>

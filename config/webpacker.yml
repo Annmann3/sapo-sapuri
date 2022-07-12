@@ -69,10 +69,8 @@ development:
       #  pathname: "/ws"
       #  port: 8080
     # Tailwindcss の変更を検知する
-    watch_options:
-      ignored: '**/node_modules/**'
-      poll: 1000
-      aggregate_timeout: 600
+    watch_files:
+      'app/javascript/**/.vue'
     # Should we use gzip compression?
     compress: true
     # Note that apps that do not check the host are vulnerable to DNS rebinding attacks
