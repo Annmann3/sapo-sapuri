@@ -30,12 +30,12 @@ ActiveRecord::Schema.define(version: 2022_05_17_082028) do
     t.string "name", limit: 30, null: false
     t.integer "graph_type", null: false
     t.string "dosage_recommendation", limit: 120, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.float "vdf"
     t.float "ke"
     t.float "ka"
     t.string "default_unit"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_nutrients_on_name", unique: true
   end
 
