@@ -17,6 +17,11 @@
             >
               ログイン
             </router-link>
+            <router-link
+              :to="{ path: '/register' }"
+            >
+              新規登録
+            </router-link>
             <span
               @click="logout"
             >ログアウト</span>
@@ -35,7 +40,6 @@ export default {
   methods: {
     ...mapActions('users',['signout']),
     async logout() {
-      debugger
       try {
         await this.signout()
         this.$router.push({ path: '/' })
