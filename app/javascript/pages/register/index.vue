@@ -131,7 +131,7 @@ export default {
       try {
         debugger
         await this.createUser(this.user)
-        this.$routerpush({ path: '/' })
+        this.$router.push({ path: '/' })
       } catch(error) {
         console.log(error)
       }

@@ -12,9 +12,6 @@ export default {
     setAuthUser(state, user) {
       state.authUser = user
     },
-    clearAuthUser(state) {
-      state.authUser = null
-    },
   },
   actions: {
     async signin({ commit }, loginUser) {
@@ -64,6 +61,34 @@ export default {
 
       commit('setAuthUser', userResponse.data.data)
       return userResponse.data.data
+    },
+    resetPasswordMail({ commit }, user) {
+      const resetPasswordParams = {
+        email: user.email,
+        redirect_url: 'http://localhost:3000/password/edit'
+      }
+      axios.post('auth/password', resetPasswordParams)
+    },
+    async updatePassword({ commit }, {user, headers}) {
+      const userResponse = await axios.put('auth/password',
+        {
+          password: user.password,
+          password_confirmation: user.password_confirmation,
+        },
+        {
+          headers: headers
+        }
+      )
+      // ログイン状態にする
+      localStorage.setItem('client', userResponse.headers['client'])
+      localStorage.setItem('uid', userResponse.headers['uid'])
+      localStorage.setItem('access-token', userResponse.headers['access-token'])
+
+      axios.defaults.headers.common['client'] = userResponse.headers['client']
+      axios.defaults.headers.common['uid'] = userResponse.headers['uid']
+      axios.defaults.headers.common['access-token'] = userResponse.headers['access-token']
+
+      commit('setAuthUser', userResponse.data.data)
     }
   }
 }

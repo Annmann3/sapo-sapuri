@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const axiosInstance = axios.create({
-  baseURL: 'api/v1'
+  baseURL: 'http://localhost:3000/api/v1'
 })
 if (localStorage.getItem('access-token')) {
   axiosInstance.defaults.headers.common['client'] = localStorage.getItem('client')

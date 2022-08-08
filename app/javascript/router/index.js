@@ -3,12 +3,14 @@ import store from '../store/index'
 import Home from '../pages/top/index'
 import Login from '../pages/login/index'
 import Register from '../pages/register/index'
+import Password from '../pages/password/index'
+import PasswordEdit from '../pages/password/edit/index'
 
 const routes = [
   {
     path: '/',
     component: Home,
-    meta: { requiredAuth: true }
+    meta: { requiredAuth: false }
   },
   {
     path: '/login',
@@ -18,6 +20,16 @@ const routes = [
   {
     path: '/register', 
     component: Register,
+    meta: { requiredAuth: false }
+  },
+  {
+    path: '/password', 
+    component: Password,
+    meta: { requiredAuth: false }
+  },
+  {
+    path: '/password/edit', 
+    component: PasswordEdit,
     meta: { requiredAuth: false }
   },
 ]
