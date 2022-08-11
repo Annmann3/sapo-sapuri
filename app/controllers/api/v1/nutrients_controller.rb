@@ -1,5 +1,5 @@
 class Api::V1::NutrientsController < ApplicationController
-  before_action :set_nutrient, only: %i[show]
+  before_action :set_nutrient, only: %i[show graph]
   def index
     @nutrients = Nutrient.all
     render json: @nutrients

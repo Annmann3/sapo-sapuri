@@ -1,15 +1,17 @@
 <template>
-  <div id="app">
-    <p>{{ message }}</p>
+  <div class="min-h-screen bg-gray-200 font-source-sans antialiased top-0">
+    <TheHeader />
+    <main class="container mx-auto mt-24 px-5">
+      <router-view />
+    </main>
   </div>
-  <TheChart />
 </template>
 
 <script>
-import TheChart from './packs/components/TheChart'
+import TheHeader from './components/TheHeader.vue'
 export default {
   components: {
-  TheChart
+    TheHeader,
   },
   data: function () {
     return {
