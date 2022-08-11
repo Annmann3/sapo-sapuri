@@ -1,7 +1,7 @@
 <template>
-  <div class="min-h-screen bg-gray-200 font-source-sans antialiased flex top-0">
+  <div class="min-h-screen bg-gray-200 font-source-sans antialiased top-0">
     <TheHeader />
-    <main class="container mx-auto mt-28 px-5">
+    <main class="container mx-auto mt-24 px-5">
       <router-view />
     </main>
   </div>
