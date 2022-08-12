@@ -89,7 +89,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('users', 'authUser')
+    ...mapGetters('users', ['authUser'])
   },
   methods: {
     ...mapActions('users',['signout']),
