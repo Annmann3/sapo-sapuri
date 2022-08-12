@@ -5,6 +5,7 @@ import Login from '../pages/login/index'
 import Register from '../pages/register/index'
 import Password from '../pages/password/index'
 import PasswordEdit from '../pages/password/edit/index'
+import Graph from '../pages/graph/index'
 
 const routes = [
   {
@@ -32,6 +33,12 @@ const routes = [
     component: PasswordEdit,
     meta: { requiredAuth: false }
   },
+  {
+    path: '/graph', 
+    component: Graph,
+    meta: { requiredAuth: true }
+  },
+
 ]
 
 const router = createRouter({

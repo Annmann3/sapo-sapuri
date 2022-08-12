@@ -4,8 +4,8 @@
   </div>
 </template>
 <script>
-import 'chart.js/auto'
 import { Line } from 'vue-chartjs'
+import 'chart.js/auto'
 
 export default {
   name: 'TheChart',
