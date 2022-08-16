@@ -1,12 +1,44 @@
 <template>
-  <Graph />
+  <Graph
+    v-if="loaded"
+    :chart-data="chartData"
+    :nutrient-name="nutrient.name"
+  />
 </template>
 
 <script>
 import Graph from '../../components/TheChart'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'GraphIndex',
   components: { Graph },
+  data() {
+    return {
+      loaded: false,
+      chartData: [],
+      nutrient: {}
+    }
+  },
+  async mounted() {
+    this.loaded = false
+    // apiを作る
+    try {
+      this.nutrient = {id: 1, name: 'ビタミンC'}
+      let arr = []
+      const datas = await this.getData(this.nutrient.id)
+      for (let n=0; n<24; n++) {
+        arr.push(datas[n * 60])
+      }
+      
+      this.chartData = arr
+      this.loaded = true
+    } catch(error) {
+      console.log(error)
+    }
+  },
+  methods: {
+    ...mapActions('graph', ['getData']),
+  },
 }
 </script>

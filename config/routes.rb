@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       }
       resources :nutrients, only: %i[index show]
       resources :graph, only: %i[show]
+      get 'graph/:id', to: 'graph#graph'
     end
   end
 
