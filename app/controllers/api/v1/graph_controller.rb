@@ -1,13 +1,8 @@
 class Api::V1::GraphController < ApplicationController
-  before_action :set_nutrient, only: %i[show]
+  before_action :set_nutrient, only: %i[show graph]
   def show
-    constant = @nutrient.graph_constant
-    type = @nutrient.graph_type
-    constant = @nutrient.graph_constant
-
-    nutrient_graph = `python app/controllers/api/v1/graph_cariculator.py #{type} #{constant}`
-    byebug
-    render json: @nutrient
+    dosage = 500
+    render json: @nutrient.calculate_24hours(dosage)
   end
 
   private
@@ -15,4 +10,5 @@ class Api::V1::GraphController < ApplicationController
   def set_nutrient
     @nutrient = Nutrient.find(params[:id])
   end
+
 end
