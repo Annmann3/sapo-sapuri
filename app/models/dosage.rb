@@ -4,4 +4,6 @@ class Dosage < ApplicationRecord
 
   validates :dosage, presence: true, numericality: true
   validates :dosage_at, presence: true
+
+  scope :last_dosage, -> { order(dosage_at: :desc).first }
 end
