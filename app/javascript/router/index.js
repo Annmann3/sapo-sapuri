@@ -6,6 +6,7 @@ import Register from '../pages/register/index'
 import Password from '../pages/password/index'
 import PasswordEdit from '../pages/password/edit/index'
 import Graph from '../pages/graph/index'
+import Dosages from '../pages/dosages/index'
 
 const routes = [
   {
@@ -38,7 +39,11 @@ const routes = [
     component: Graph,
     meta: { requiredAuth: true }
   },
-
+  {
+    path: '/dosages',
+    component: Dosages,
+    meta: { requiredAuth: true }
+  },
 ]
 
 const router = createRouter({
