@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2022_05_17_082028) do
   create_table "dosages", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "nutrient_id"
-    t.integer "dosage", null: false
+    t.integer "amount", null: false
     t.datetime "dosage_at", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
