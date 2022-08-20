@@ -37,7 +37,6 @@ class Api::V1::DosagesController < ApplicationController
   end
 
   def dosage_params
-    byebug
     params.require(:dosage).permit(:dosage, :dosage_at, :nutrient_id)
   end
 end

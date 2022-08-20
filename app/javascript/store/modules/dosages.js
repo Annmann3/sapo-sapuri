@@ -49,7 +49,6 @@ export default {
         })
     },
     updateDosage({ commit }, dosage) {
-      debugger
       axios.patch(`dosages/${dosage.id}`)
         .then((res) => {
           commit('updateDosage', res.data)
@@ -59,7 +58,6 @@ export default {
         })
     },
     deleteDosage({ commit }, dosage) {
-      debugger
       axios.delete(`dosages/${dosage.id}`)
         .then((res) => {
           commit('deleteDosage', res.data)
