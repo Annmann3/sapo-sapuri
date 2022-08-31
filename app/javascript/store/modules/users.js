@@ -59,8 +59,12 @@ export default {
           return null
         })
 
-      commit('setAuthUser', userResponse.data.data)
-      return userResponse.data.data
+      if (userResponse !== null) {
+        commit('setAuthUser', userResponse.data.data)
+        return userResponse.data.data
+      } else {
+        return null
+      }
     },
     resetPasswordMail({ commit }, user) {
       const resetPasswordParams = {
