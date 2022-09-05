@@ -43,20 +43,18 @@
             class="flex-shrink flex-grow leading-normal border-0 border-grey-light h-15 px-3 relative self-center font-roboto text-xl outline-none"
           />
         </div>
-        <button
-          type="button"
-          class="bg-blue-400 py-4 text-center px-17 md:px-12 md:py-4 text-white rounded leading-tight text-xl md:text-base font-sans mt-4 mb-20"
-          @click="submitDosage"
+        <BaseButton
+        :bgcolor="'bg-sky-400 hover:bg-sky-500'"
+        @click="submitDosage"
         >
           登録
-        </button>
-        <button
-          type="button"
-          class="bg-blue-400 py-4 text-center px-17 md:px-12 md:py-4 text-white rounded leading-tight text-xl md:text-base font-sans mt-4 mb-20"
+        </BaseButton>
+        <BaseButton
+          :bgcolor="'bg-gray-400 hover:bg-gray-500'"
           @click="closeModal"
-        >
+          >
           キャンセル
-        </button>
+        </BaseButton>
       </form>
     </div>
   </div>
@@ -65,10 +63,14 @@
 <script>
 import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
+import BaseButton from '../../components/BaseButton'
 
 export default {
   name: 'DosageCreateModal',
-  components: { Datepicker },
+  components: {
+    Datepicker,
+    BaseButton,
+    },
   emits: ['createDosage', 'closeCreateModal'],
   data() {
     return {
