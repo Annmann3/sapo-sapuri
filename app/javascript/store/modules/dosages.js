@@ -2,11 +2,11 @@ import axios from '../../plugins/axios'
 
 export default {
   namespaced: true,
-  state: () => {
+  state: () => ({
     dosageList: []
-  },
+  }),
   getters: {
-    dosageList: state => state.dosageList
+    dosageList: state => state.dosageList,
   },
   mutations: {
     setDosageList(state, dosages) {
@@ -18,7 +18,7 @@ export default {
     updateDosage(state, dosage) {
       const index = state.dosageList.findIndex(el => el.id === dosage.id)
       if (index !== -1) {
-        state.tasks.splice(index, 1, dosage)
+        state.dosageList.splice(index, 1, dosage)
       }
     },
     deleteDosage(state, dosage) {
@@ -39,8 +39,8 @@ export default {
         })
       // dosageがないときの処理
     },
-    createDosage({ commit }) {
-      axios.post('dosages')
+    createDosage({ commit }, dosage) {
+      axios.post('dosages', dosage)
         .then((res) => {
           commit('addDosage', res.data)
         })
@@ -49,7 +49,7 @@ export default {
         })
     },
     updateDosage({ commit }, dosage) {
-      axios.patch(`dosages/${dosage.id}`)
+      axios.patch(`dosages/${dosage.id}`, dosage)
         .then((res) => {
           commit('updateDosage', res.data)
         })

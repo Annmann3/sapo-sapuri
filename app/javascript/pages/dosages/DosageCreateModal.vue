@@ -2,7 +2,7 @@
   <div class="bg-blue-200 flex">
     <div class="flex-col flex ml-auto mr-auto items-center w-full">
       <h1 class="font-bold text-2xl my-10 text-white">
-        編集
+        服用登録
       </h1>
       <form
         action=""
@@ -12,7 +12,7 @@
           <label for="nutrient_id" />
           <select
             id="nutrient_id"
-            v-model.lazy="nutrient_id"
+            v-model.lazy="dosage.nutrient_id"
             class="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border-0 h-10 border-grey-light rounded rounded-l-none px-3 self-center relative  font-roboto text-xl outline-none"
           >
             <option
@@ -25,10 +25,10 @@
           </select>
         </div>
         <div class="flex flex-wrap items-stretch w-full mb-4 relative h-15 bg-white items-center rounded mb-6 pr-10">
-          <label for="amunt" />
+          <label for="amount" />
           <input
-            id="dosage"
-            v-model="amount"
+            id="amount"
+            v-model.lazy="dosage.amount"
             type="number"
             class="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border-0 h-10 border-grey-light rounded rounded-l-none px-3 self-center relative  font-roboto text-xl outline-none"
             placeholder="服用量"
@@ -37,106 +37,57 @@
         <div class="flex flex-wrap items-stretch w-full relative h-15 bg-white items-center rounded mb-4">
           <label for="dosage_at" />
           <Datepicker
-            v-model="dosage_at"
+            v-model="dosage.dosage_at"
             text-input
             auto-apply
             class="flex-shrink flex-grow leading-normal border-0 border-grey-light h-15 px-3 relative self-center font-roboto text-xl outline-none"
           />
         </div>
-        <BaseButton
-        :bgcolor="'bg-blue-400'"
-        @click="submitDosage"
+        <button
+          type="button"
+          class="bg-blue-400 py-4 text-center px-17 md:px-12 md:py-4 text-white rounded leading-tight text-xl md:text-base font-sans mt-4 mb-20"
+          @click="submitDosage"
         >
-          更新
-        </BaseButton>
-        <BaseButton
-          :bgcolor="'bg-red-400'"
-          @click="deleteDosage"
-        >
-          削除
-        </BaseButton>
-        <BaseButton
-          :bgcolor="'bg-gray-400'"
+          登録
+        </button>
+        <button
+          type="button"
+          class="bg-blue-400 py-4 text-center px-17 md:px-12 md:py-4 text-white rounded leading-tight text-xl md:text-base font-sans mt-4 mb-20"
           @click="closeModal"
-          >
+        >
           キャンセル
-        </BaseButton>
+        </button>
       </form>
     </div>
   </div>
 </template>
 
 <script>
-import Datepicker from '@vuepic/vue-datepicker'
+import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
-import BaseButton from '../../components/BaseButton'
 
 export default {
-  name: 'DosageEditModal',
-  components: {
-    Datepicker,
-    BaseButton,
-    },
-  props: {
-    dosage: {
-      type: Object,
-      required: true,
-      id: { type: Number, required: true },
-      amount: { type: Number, required: true },
-      nutrient_id: { type: Number, required: true },
-      dosage_at: { type: Date, required: true },
-      user_id: { type: Number, required: true },
-    },
-  },
-  emits: ['update:dosage', 'updateDosage', 'deleteDosage', 'closeEditModal'],
+  name: 'DosageCreateModal',
+  components: { Datepicker },
+  emits: ['createDosage', 'closeCreateModal'],
   data() {
     return {
+      dosage: {
+        nutrient_id: 1,
+        amount: '',
+        dosage_at: new Date(), // vuepicはこのオブジェクトに沿った形式を取得してくれる
+      },
       options: [
         {id: 1, name: 'ビタミンC'},
       ],
     }
   },
-  computed: {
-    nutrient_id: {
-      get() {
-        return this.dosage.nutrient_id
-      },
-      set(nutrient_id) {
-        return this.updateValue({ nutrient_id })
-      },
-    },
-    amount: {
-      get() {
-        return this.dosage.amount
-      },
-      set(amount) {
-        return this.updateValue({ amount })
-      },
-    },
-    dosage_at: {
-      get() {
-        return this.dosage.dosage_at
-      },
-      set(dosage_at) {
-        return this.updateValue({ dosage_at })
-      },
-    }
-  },
-  mounted() {
-  },
   methods: {
-    updateValue(diff) {
-      // propsのコピー変更分を加える
-      this.$emit('update:dosage', {...this.dosage, ...diff})
-    },
     submitDosage() {
-      this.$emit('updateDosage')
-    },
-    deleteDosage() {
-      this.$emit('deleteDosage', this.dosage)
+        this.$emit('createDosage', this.dosage)
     },
     closeModal() {
-      this.$emit('closeEditModal')
+      this.$emit('closeCreateModal')
     },
   },
 }
