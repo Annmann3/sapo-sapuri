@@ -25,20 +25,20 @@ vc = Nutrient.create!(
 Dosage.create!(
   user_id: user.id,
   nutrient_id: vc.id,
-  dosage: 1000,
+  amount: 1000,
   dosage_at: Time.now - 6.hours
 )
 
 Dosage.create!(
   user_id: user.id,
   nutrient_id: vc.id,
-  dosage: 1000,
+  amount: 1000,
   dosage_at: Time.now - 3.hours
 )
 
 Dosage.create!(
   user_id: user.id,
   nutrient_id: vc.id,
-  dosage: 1000,
+  amount: 1000,
   dosage_at: Time.now
 )

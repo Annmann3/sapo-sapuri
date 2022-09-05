@@ -8,7 +8,6 @@ class Nutrient < ApplicationRecord
   validates :vdf, numericality: true
   validates :ka, numericality: true
   validates :ke, numericality: true
-  validates :lag_time, numericality: true
 
   # 24時間の血中濃度
   def calculate_24hours(dosages, start = Time.now)

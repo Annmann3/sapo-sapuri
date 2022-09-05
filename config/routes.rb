@@ -7,8 +7,9 @@ Rails.application.routes.draw do
         registrations: 'api/v1/auth/registrations'
       }
       resources :nutrients, only: %i[index show]
-      resources :graph, only: %i[show]
-      get 'graph/:id', to: 'graph#graph'
+      resources :dosages
+      get 'graph/:nutrient_id', to: 'graph#draw24'
+      get 'graph/me/:nutrient_id', to: 'graph#show'
     end
   end
 
