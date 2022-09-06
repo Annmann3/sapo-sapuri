@@ -44,19 +44,19 @@
           />
         </div>
         <BaseButton
-        :bgcolor="'bg-blue-400'"
+        :bgcolor="'bg-sky-400 hover:bg-sky-500'"
         @click="submitDosage"
         >
           更新
         </BaseButton>
         <BaseButton
-          :bgcolor="'bg-red-400'"
+          :bgcolor="'bg-rose-400 hover:bg-rose-500'"
           @click="deleteDosage"
         >
           削除
         </BaseButton>
         <BaseButton
-          :bgcolor="'bg-gray-400'"
+          :bgcolor="'bg-gray-400 hover:bg-gray-500'"
           @click="closeModal"
           >
           キャンセル

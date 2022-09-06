@@ -8,8 +8,8 @@ Rails.application.routes.draw do
       }
       resources :nutrients, only: %i[index show]
       resources :dosages
-      get 'graph/:nutrient_id', to: 'graph#draw24'
-      get 'graph/me/:nutrient_id', to: 'graph#show'
+      get 'graph/nutrient/:nutrient_id', to: 'graph#draw24'
+      get 'graph/me', to: 'graph#show'
     end
   end
 

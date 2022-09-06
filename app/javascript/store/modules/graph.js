@@ -14,13 +14,21 @@ export default {
     }
   },
   actions: {
-    async getData({ commit }, nutrientId) {
-      const graphResponse = await axios.get(`graph/${nutrientId}`)
+    async getNutrinetData({ commit }, nutrientId) {
+      const graphResponse = await axios.get(`graph/nutrient/${nutrientId}`)
         .catch((err) => {
           console.log(err)
           return null
         })
-
+      commit('setDataList', graphResponse.data)
+      return graphResponse.data
+    },
+    async getNutrinetDataByDosageAt({ commit }) {
+      const graphResponse = await axios.get('graph/me')
+      .catch((err) => {
+        console.log(err)
+        return null
+      })
       commit('setDataList', graphResponse.data)
       return graphResponse.data
     },

@@ -3,7 +3,7 @@
     服用履歴
   </h1>
   <BaseButton
-  :bgcolor="'bg-blue-400'"
+  :bgcolor="'bg-sky-400 hover:bg-sky-500'"
   class="block mx-auto mb-3"
   @click="handleShowCreateModal"
   >

@@ -74,6 +74,17 @@
               v-if="authUser"
               class="border-b md:border-none"
             >
+              <router-link
+                class="block px-8 my-4 hover:bg-yellow-500 rounded"
+                :to="{ path: '/graph' }"
+              >
+                グラフ
+              </router-link>
+            </li>
+            <li
+              v-if="authUser"
+              class="border-b md:border-none"
+            >
               <button
                 class="block px-8 my-4 hover:bg-yellow-500 rounded"
                 type="button"
@@ -81,17 +92,6 @@
               >
                 ログアウト
               </button>
-            </li>
-            <li
-              v-if="authUser"
-              class="border-b md:border-none"
-            >
-              <router-link
-                class="block px-8 my-4 hover:bg-yellow-500 rounded"
-                :to="{ path: '/graph' }"
-              >
-                グラフ
-              </router-link>
             </li>
           </ul>
         </div>
