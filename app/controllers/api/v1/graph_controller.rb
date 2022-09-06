@@ -1,6 +1,6 @@
 class Api::V1::GraphController < ApplicationController
   before_action :authenticate_api_v1_user!, only: %i[show]
-  before_action :set_nutrient, only: %i[draw24 show]
+  before_action :set_nutrient, only: %i[draw24]
 
   def draw24
     amount = params[:dosage] || 500
@@ -10,7 +10,12 @@ class Api::V1::GraphController < ApplicationController
   # nutrient_idを受け取り種類別に表示する予定
   def show
     @dosage = current_api_v1_user.dosages.last_dosage
-    render json: @nutrinet.calculate_24hours(@dosage.dosage, @dosage.dosage_at)
+    @nutrient = @dosage.nutrient
+    if @dosage.dosage_at > 1.day.ago
+      render json: @nutrient.calculate_24hours(@dosage.amount, @dosage.dosage_at)
+    else
+      render json: @nutrient.calculate_24hours(0)
+    end
   end
 
   private

@@ -5,8 +5,9 @@ import Login from '../pages/login/index'
 import Register from '../pages/register/index'
 import Password from '../pages/password/index'
 import PasswordEdit from '../pages/password/edit/index'
-import Graph from '../pages/graph/index'
+import Graph from '../pages/graph/MyGraph'
 import Dosages from '../pages/dosages/index'
+import test from '../pages/graph/index'
 
 const routes = [
   {
@@ -43,6 +44,11 @@ const routes = [
     path: '/dosages',
     component: Dosages,
     meta: { requiredAuth: true }
+  },
+  {
+    path: '/test',
+    component: test,
+    meta: { requiredAuth: false }
   },
 ]
 

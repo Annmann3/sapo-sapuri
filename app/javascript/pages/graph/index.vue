@@ -15,18 +15,17 @@ export default {
   components: { Graph },
   data() {
     return {
-      loaded: false,
+      loaded: false, //グラフの描画が完了したかどうか
       chartData: [],
       nutrient: {}
     }
   },
   async mounted() {
     this.loaded = false
-    // apiを作る
     try {
       this.nutrient = {id: 1, name: 'ビタミンC'}
       let arr = []
-      const datas = await this.getData(this.nutrient.id)
+      const datas = await this.getNutrinetData(this.nutrient.id)
       for (let n=0; n<24; n++) {
         arr.push(datas[n * 60])
       }
@@ -38,7 +37,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('graph', ['getData']),
+    ...mapActions('graph', ['getNutrinetData']),
   },
 }
 </script>
