@@ -67,6 +67,12 @@ export default {
   },
   computed: {
     ...mapGetters('dosages', ['dosageList']),
+    sortedDosages() {
+      let sorteDosages = [...this.dosageList] //stateを変更しないように
+      return sorteDosages.sort((a, b) => {
+        return a.dosage_at < b.dosage_at
+      })
+    },
   },
   mounted() {
     this.fetchDosages()

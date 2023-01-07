@@ -33,7 +33,7 @@
             {{ dosage.amount }}
           </td>
           <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">
-            {{ dosage.dosage_at }}
+            {{ formatDayjs(dosage.dosage_at) }}
           </td>
           <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">
             <button
@@ -70,6 +70,9 @@
 </template>
 
 <script>
+import dayjs from 'dayjs'
+dayjs.locale('ja')
+
 export default {
   name: 'DosagesTable',
   props: {
@@ -88,5 +91,10 @@ export default {
       dosageKeys: ['id', 'nutrient_id', 'user_id', 'amount', 'dosage_at']
     }
   },
+  methods: {
+    formatDayjs(date) {
+      return dayjs(date).format('MM/DD HH:mm')
+    },
+  }
 }
 </script>
