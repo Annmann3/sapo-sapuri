@@ -14,7 +14,7 @@ class Api::V1::GraphController < ApplicationController
     if @dosage.dosage_at > 1.day.ago
       render json: @nutrient.calculate_24hours(@dosage.amount, @dosage.dosage_at)
     else
-      render json: @nutrient.calculate_24hours(0)
+      render json: @nutrient.calculate_zero
     end
   end
 

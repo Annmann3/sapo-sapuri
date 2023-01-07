@@ -17,7 +17,7 @@ export default {
     return {
       loaded: false, //グラフの描画が完了したかどうか
       chartData: [],
-      nutrient: {},
+      nutrient: {id: 1, name: 'ビタミンC'},
     }
   },
   computed: {
@@ -29,12 +29,7 @@ export default {
     this.loaded = false
     const datas = await this.getNutrinetDataByDosageAt()
       try {
-        this.nutrient = {id: 1, name: 'ビタミンC'}
-        let arr = []
-        for (let n=0; n<24; n++) {
-          arr.push(datas[n * 60])
-        }
-        this.chartData = arr
+        this.chartData = datas
         this.loaded = true
       } catch(error) {
         console.log(error)

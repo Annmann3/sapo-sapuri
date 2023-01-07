@@ -9,13 +9,26 @@ class Nutrient < ApplicationRecord
   validates :ka, numericality: true
   validates :ke, numericality: true
 
-  # 24時間の血中濃度
+  # 1分間隔の24時間の血中濃度の配列
   def calculate_24hours(dosages, start = Time.now)
     blood_list = []
     (24 * 60).times do |n|
       data = {
         x: start + n.minute,
         y: dosages * calculate_per_dosages(n / 60.0)
+      }
+      blood_list.push(data)
+    end
+    blood_list
+  end
+
+  # 現在時刻から前後１２時間の濃度0の配列
+  def calculate_zero
+    blood_list = []
+    (24 * 60).times do |n|
+      data = {
+        x: Time.now + n.minute - 12.hours,
+        y: 0
       }
       blood_list.push(data)
     end

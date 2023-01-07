@@ -11,17 +11,8 @@ import { Line } from 'vue-chartjs'
 import 'chart.js/auto'
 import 'chartjs-adapter-moment'
 
-//減少区間
-const down = (ctx, value) => ctx.p0.parsed.y > ctx.p1.parsed.y ? value : undefined
-// 現在時刻移行
-const now = (ctx, value) => ctx.p0.parsed.x > new Date() ? value : undefined
-const now2 = function(ctx, value) {
-    if (ctx.p0.parsed.x < new Date() && ctx.p1.parsed.x > new Date()) {
-      debugger
-      ctx.p0.draw()
-    }
-  return ctx.p0.parsed.x > new Date() ? value : undefined
-}
+// 現在時刻以降の区間かを判定する
+const isFuture = (ctx, value) => ctx.p0.parsed.x > new Date() ? value : undefined
 
 export default {
   name: 'TheChart',
@@ -54,12 +45,12 @@ export default {
             cubicInterpolationMode: 'monotone',//曲線補完オプション。
             fill: true,
             data: [...this.chartData],
-            pointStyle: false,
+            pointStyle: 'dash',
             order: 1, //描画順序
-            segment: {
-              borderColor: ctx => now(ctx, 'rgb(0,0,0,0.2)'),
-              backgroundColor: ctx => now(ctx, 'rgb(0,0,0,0.1)'),
-              borderDash: ctx => now(ctx, [5,5])
+            segment: { //未来区間のスタイル
+              borderColor: ctx => isFuture(ctx, 'rgb(0,0,0,0.2)'),
+              backgroundColor: ctx => isFuture(ctx, 'rgb(0,0,0,0.1)'),
+              borderDash: ctx => isFuture(ctx, [5,5])
             }
           },
           {
@@ -96,20 +87,8 @@ export default {
             beginAtZero: true,
            },
         },
-        animations: {
-          tension: {
-            duration: 900,
-            easing: 'easeInQuad',
-            from: 1,
-            to: 0,
-            loop: true,
-          },
-        },
       },
     }
   },
-  mounted() {
-    console.log('hello')
-  }
 }
 </script>
