@@ -28,12 +28,12 @@ export default {
   async mounted() {
     this.loaded = false
     const datas = await this.getNutrinetDataByDosageAt()
-      try {
-        this.chartData = datas
+    try {
+      this.chartData = datas
         this.loaded = true
-      } catch(error) {
-        console.log(error)
-      }
+    } catch(error) {
+      console.log(error)
+    }
   },
   methods: {
     ...mapActions('graph', ['getNutrinetData', 'getNutrinetDataByDosageAt']),
