@@ -39,6 +39,9 @@ RUN bundle install
 COPY yarn.lock /$APP_NAME/yarn.lock
 COPY package.json /$APP_NAME/package.json
 
+COPY postcss.config.js /$APP_NAME/postcss.config.js
+COPY babel.config.js /$APP_NAME/babel.config.js
+
 COPY . /$APP_NAME/
 
 RUN yarn install --production --frozen-lockfile \
