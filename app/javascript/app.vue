@@ -1,14 +1,21 @@
 <template>
-  <div id="app">
-    <p>{{ message }}</p>
+  <div class="min-h-screen bg-gray-200 font-source-sans antialiased top-0">
+    <TheHeader />
+    <main class="container mx-auto mt-24 px-5">
+      <router-view />
+    </main>
   </div>
 </template>
 
 <script>
+import TheHeader from './components/TheHeader.vue'
 export default {
+  components: {
+    TheHeader,
+  },
   data: function () {
     return {
-      message: "Hello Vue!"
+      message: "Hello Vue and ChartJS!"
     }
   }
 }
