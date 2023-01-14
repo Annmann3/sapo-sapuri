@@ -1,7 +1,8 @@
 import axios from 'axios'
 
+const baseUrl = (process.env.NODE_ENV === 'production') ? process.env.API_URL : 'http://localhost:3000/api/v1'
 const axiosInstance = axios.create({
-  baseURL: process.env.API_BASE_URL
+  baseURL: baseUrl
 })
 if (localStorage.getItem('access-token')) {
   axiosInstance.defaults.headers.common['client'] = localStorage.getItem('client')
