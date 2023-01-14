@@ -81,4 +81,7 @@ test:
 #
 production:
   <<: *default
-  password: <%= ENV['TEST_APP_DATABASE_PASSWORD'] %>
+  database: clcutmlma001dbxqu92ksgijs
+  username: clcutmlm8001bbxqugv0f2f48
+  password: <%= ENV['SAPOC_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABSE_URL'] %>

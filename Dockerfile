@@ -1,7 +1,7 @@
 #applicationのディレクトリ名
 ARG APP_NAME=sapo-sapuri
 #使いたいrubyのimage名
-ARG RUBY_IMAGE=ruby:3.1.1p18
+ARG RUBY_IMAGE=ruby:3.1.1
 #使いたいnode
 ARG NODE_VERSION='16'
 #インストールするbundlerのversionに置き換えてください
