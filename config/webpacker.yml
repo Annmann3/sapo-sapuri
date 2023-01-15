@@ -70,7 +70,7 @@ development:
       #  port: 8080
     # Tailwindcss の変更を検知する
     watch_files:
-      'app/javascript/**/.vue'
+      'app/javascript/**/*.vue'
     # Should we use gzip compression?
     compress: true
     # Note that apps that do not check the host are vulnerable to DNS rebinding attacks
