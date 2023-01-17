@@ -4,14 +4,14 @@
       <thead class="bg-blue-400">
         <tr>
           <th
-            v-for="(value, index) in dosageKeys"
+            v-for="(value, index) in columns"
             :key="index"
-            class="w-1/2 border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left"
+            class="w-1/2 border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-center"
           >
             {{ value }}
           </th>
           <th
-            class="w-1/2 border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left"
+            class="w-1/2 border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-center"
           />
         </tr>
       </thead>
@@ -21,13 +21,8 @@
           :key="dosage.id"
         >
           <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">
-            {{ dosage.id }}
-          </td>
-          <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">
-            {{ dosage.nutrient_id }}
-          </td>
-          <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">
-            {{ dosage.user_id }}
+            <!-- {{ dosage.nutrient.name }} -->
+            ビタミンc
           </td>
           <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">
             {{ dosage.amount }}
@@ -81,14 +76,14 @@ export default {
       required: true,
       id: { type: Number, required: true },
       amount: { type: Number, required: true },
-      nutrient_id: { type: Number, required: true },
       dosage_at: { type: Date, required: true },
      },
   },
   emits: ["show-edit-modal"],
   data() {
     return {
-      dosageKeys: ['id', 'nutrient_id', 'user_id', 'amount', 'dosage_at']
+      dosageKeys: ['id', 'amount', 'dosage_at'],
+      columns: ['名前', '量', '日時'],
     }
   },
   methods: {
