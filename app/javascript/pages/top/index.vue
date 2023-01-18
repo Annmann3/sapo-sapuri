@@ -1,5 +1,5 @@
 <template>
-  <section class="top--part bg-cover bg-center md:bg-fixed">
+  <section class="top--part bg-cover bg-center">
     <div class="mx-auto h-96 flex flex-col justify-end relative">
       <div class="pb-16">
         <h1 class="text-4xl font-bold text-white text-center">カラダの中のビタミンCが見える</h1>

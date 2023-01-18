@@ -1,15 +1,16 @@
 <template>
-  <div class="bg-yellow-300 shadow">
-    <header class="container mx-auto text-white pb-1">
-      <nav class="w-full">
-        <div class="flex justify-between items-center fixed w-full left-0 h-16 bg-yellow-300 px-2 md:static">
-          <router-link
-            class="text-4xl font-semibolid md:text-xl"
-            :to="{ path: '/' }"
-          >
-            Sapo-Sapuri
-          </router-link>
-          <div>
+    <header class="md:flex md:justify-center">
+      <nav class="z-10 text-white w-full fixed top-0 bg-yellow-300 shadow md:rounded-b-2xl md:flex md:justify-between opacity-95">
+        <div class="flex justify-between md:flex-none items-center h-16 px-2">
+          <div class="">
+            <router-link
+              class="text-3xl font-semibolid md:text-3xl"
+              :to="{ path: '/' }"
+            >
+              SAPO-C
+            </router-link>
+          </div>
+          <div class="">
             <button
               class="md:hidden"
               @click="isOpen = !isOpen"
@@ -31,18 +32,18 @@
           </div>
         </div>
         <div
-          :class="isOpen ? 'block' : 'hidden'"
-          class="fixed left-0 w-full mt-16 bg-yellow-300 md:block md:static md:mt-0 shadow md:shadow-none"
+          :class="isOpen ? '' : 'hidden'"
+          class="left-0 md:block md:mt-0"
         >
           <ul
             class="md:flex md:justify-end md:items-center"
           >
             <li 
               v-if="!authUser"
-              class="border-b md:border-none"
+              class="border-b-2 border-t-2 border-color-white md:border-none"
             >
               <router-link
-                class="block px-8 my-4 hover:bg-yellow-500 rounded"
+                class="block px-8 py-4 hover:bg-yellow-500 rounded"
                 :to="{ path: '/login' }"
               >
                 ログイン
@@ -50,10 +51,10 @@
             </li>
             <li
               v-if="!authUser"
-              class="border-b md:border-none"
+              class="border-b-2 md:border-none"
             >
               <router-link
-                class="block px-8 my-4 hover:bg-yellow-500 rounded"
+                class="block px-8 py-4 hover:bg-yellow-500 rounded"
                 :to="{ path: '/register' }"
               >
                 新規登録
@@ -97,7 +98,6 @@
         </div>
       </nav>
     </header>
-  </div>
 </template>
 
 <script>
