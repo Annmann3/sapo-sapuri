@@ -84,4 +84,4 @@ production:
   database: cld5otgko00bd9tryetzd005x
   username: cld5otgkn00bb9try6bukgd0t
   password: <%= ENV['SAPOC_DATABASE_PASSWORD'] %>
-  url: <%= ENV['DATABSE_URL'] %>
+  url: <%= ENV['DATABASE_URL'] %>
