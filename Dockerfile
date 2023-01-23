@@ -38,7 +38,7 @@ RUN bundle install
 
 COPY . /$APP_NAME/
 
-RUN SECRET_KEY_BASE="$(bundle exec rake secret)" bundle exec rails webpacker:precompile webpacker:clean \
+RUN SECRET_KEY_BASE="$(bundle exec rake secret)" bundle exec rails webpacker:compile webpacker:clean \
 && yarn install --production --frozen-lockfile \
 && yarn cache clean \
 && rm -rf /$APP_NAME/node_modules /$APP_NAME/tmp/cache
