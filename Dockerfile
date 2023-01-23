@@ -36,17 +36,11 @@ COPY Gemfile.lock /$APP_NAME/Gemfile.lock
 
 RUN bundle install
 
-COPY yarn.lock /$APP_NAME/yarn.lock
-COPY package.json /$APP_NAME/package.json
-
-COPY postcss.config.js /$APP_NAME/postcss.config.js
-COPY babel.config.js /$APP_NAME/babel.config.js
-
 COPY . /$APP_NAME/
 
-RUN yarn install --production --frozen-lockfile \
+RUN SECRET_KEY_BASE="$(bundle exec rake secret)" bundle exec rails webpacker:precompile webpacker:clean \
+&& yarn install --production --frozen-lockfile \
 && yarn cache clean \
-&& SECRET_KEY_BASE="$(bundle exec rake secret)" bundle exec rails assets:precompile assets:clean \
 && rm -rf /$APP_NAME/node_modules /$APP_NAME/tmp/cache
 
 COPY entrypoint.sh /usr/bin/
