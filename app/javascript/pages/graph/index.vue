@@ -8,7 +8,7 @@
 
 <script>
 import Graph from '../../components/TheChart'
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'GraphIndex',
@@ -17,27 +17,26 @@ export default {
     return {
       loaded: false, //グラフの描画が完了したかどうか
       chartData: [],
-      nutrient: {}
+      nutrient: {id: 1, name: 'ビタミンC'},
     }
+  },
+  computed: {
+    ...mapState({
+      dosageList: state => state.dosages.dosageList,
+    }),
   },
   async mounted() {
     this.loaded = false
+    const datas = await this.getNutrinetDataByDosageAt()
     try {
-      this.nutrient = {id: 1, name: 'ビタミンC'}
-      let arr = []
-      const datas = await this.getNutrinetData(this.nutrient.id)
-      for (let n=0; n<24; n++) {
-        arr.push(datas[n * 60])
-      }
-      
-      this.chartData = arr
-      this.loaded = true
+      this.chartData = datas
+        this.loaded = true
     } catch(error) {
       console.log(error)
     }
   },
   methods: {
-    ...mapActions('graph', ['getNutrinetData']),
+    ...mapActions('graph', ['getNutrinetData', 'getNutrinetDataByDosageAt']),
   },
 }
 </script>
