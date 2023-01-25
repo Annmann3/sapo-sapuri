@@ -14,7 +14,7 @@ export default {
     }
   },
   actions: {
-    async getNutrinetData({ commit }, graphParams) {
+    async getGuestGraphData({ commit }, graphParams) {
       const graphResponse = await axios.post('guest_user_graph', graphParams)
         .catch((err) => {
           console.log(err)
@@ -23,7 +23,7 @@ export default {
       commit('setDataList', graphResponse.data)
       return graphResponse.data
     },
-    async getNutrinetDataByDosageAt({ commit }) {
+    async getUserGraphData({ commit }) {
       const graphResponse = await axios.get('user_graph')
       .catch((err) => {
         console.log(err)

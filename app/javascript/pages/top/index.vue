@@ -8,9 +8,9 @@
     </div>
   </section>
   <section>
-      <div class="mx-auto text-center pt-10">
+      <div class="text-center pt-10">
         <BaseButton
-          :bgcolor="'bg-sky-400 hover:bg-sky-500'"
+          :bgcolor="'bg-blue-400 hover:bg-blue-500'"
           @click="goToGuestGraphPage"
           >
           使ってみる
@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     goToGuestGraphPage() {
-      this.$router.push({ path: '/guest_graph' })
+      this.$router.push({ path: '/guest-graph' })
     },
   }
 }
