@@ -5,9 +5,10 @@ import Login from '../pages/login/index'
 import Register from '../pages/register/index'
 import Password from '../pages/password/index'
 import PasswordEdit from '../pages/password/edit/index'
-import Graph from '../pages/graph/MyGraph'
+import Graph from '../pages/graph/index'
+import GuestGraph from '../pages/guest-graph/index'
 import Dosages from '../pages/dosages/index'
-import test from '../pages/graph/index'
+import test from '../pages/graph/test'
 
 const routes = [
   {
@@ -48,6 +49,11 @@ const routes = [
   {
     path: '/test',
     component: test,
+    meta: { requiredAuth: false }
+  },
+  {
+    path: '/guest-graph',
+    component: GuestGraph,
     meta: { requiredAuth: false }
   },
 ]
