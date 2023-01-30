@@ -48,3 +48,4 @@ yarn-debug.log*
 jsconfig.json
 .eslintrc.js
 .env
+ngrok
