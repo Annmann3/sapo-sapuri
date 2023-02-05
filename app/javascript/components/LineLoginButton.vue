@@ -8,12 +8,6 @@
       :src="image"
     >
     </a>
-    <button
-    type="button"
-    @click="login"
-    >
-    console
-    </button>
   </div>
 </template>
 
@@ -41,14 +35,7 @@ export default {
     const host = window.location.origin
     this.omniauth_url = `${host}/api/v1/auth/line`
     this.auth_origin_url = `${host}/oauth/line/callback`
-    console.log('omniauth_url', this.omniauth_url)
-    console.log('auth_origin_url', this.auth_origin_url)
   },
-  methods: {
-    login() {
-      console.log(this.loginUrl)
-    }
-  }
 }
 </script>
 
