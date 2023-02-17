@@ -52,11 +52,8 @@ export default {
       return this.omniauth_url
              + '?auth_origin_url='
              + encodeURI(this.auth_origin_url)
-             //　ログイン中のユーザーを送る
-             + '&current_user_provider='
+             + '&provider='
              + this.provider
-             + '&current_user_uid='
-             + encodeURI(this.uid)
     },
     dataParams() {
       return JSON.stringify(this.obj)
@@ -69,7 +66,6 @@ export default {
 
     if (this.authUser) {
       this.provider = this.authUser.provider
-      this.uid = this.authUser.uid
     }
   },
   methods: {
