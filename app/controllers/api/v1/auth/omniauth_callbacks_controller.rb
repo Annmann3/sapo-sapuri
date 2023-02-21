@@ -81,6 +81,7 @@ class Api::V1::Auth::OmniauthCallbacksController < DeviseTokenAuth::OmniauthCall
       sign_in(:user, @resource, store: false, bypass: false)
 
       @resource.save!
+      @authentication.update!(user: @resource)
 
       yield @resource if block_given?
 
@@ -282,12 +283,16 @@ class Api::V1::Auth::OmniauthCallbacksController < DeviseTokenAuth::OmniauthCall
     # find or create user by provider and provider uid
     puts 'get_resource_from_auth_hash'
     byebug
-    @resource = resource_class.where(
-      uid: auth_hash['uid'],
-      provider: auth_hash['provider']
-    ).first_or_initialize
-
-    handle_new_resource if @resource.new_record?
+    @authentication = Authentication.find_by_auth(auth_hash)
+    if @authentication.user
+      @resource = @authentication.user
+    else
+      @resource = @authentication.build_user(
+        provider: auth_hash['provider'],
+        uid: auth_hash['uid']
+      )
+      handle_new_resource
+    end
 
     # sync user info with provider, update/generate auth token
     assign_provider_attrs(@resource, auth_hash)

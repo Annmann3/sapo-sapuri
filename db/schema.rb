@@ -10,10 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_17_082028) do
+ActiveRecord::Schema.define(version: 2023_02_17_122120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "authentications", force: :cascade do |t|
+    t.string "uid", null: false
+    t.string "provider", null: false
+    t.string "token"
+    t.string "refresh_token"
+    t.integer "expires_at"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["uid", "provider"], name: "index_authentications_on_uid_and_provider", unique: true
+    t.index ["user_id"], name: "index_authentications_on_user_id"
+  end
 
   create_table "dosages", force: :cascade do |t|
     t.bigint "user_id"
@@ -64,6 +77,7 @@ ActiveRecord::Schema.define(version: 2022_05_17_082028) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "authentications", "users"
   add_foreign_key "dosages", "nutrients"
   add_foreign_key "dosages", "users"
 end
