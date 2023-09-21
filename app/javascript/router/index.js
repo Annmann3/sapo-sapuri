@@ -8,6 +8,7 @@ import PasswordEdit from '../pages/password/edit/index'
 import Graph from '../pages/graph/index'
 import GuestGraph from '../pages/guest-graph/index'
 import Dosages from '../pages/dosages/index'
+import LineCallback from '../pages/oauth/line/callback'
 import test from '../pages/graph/test'
 
 const routes = [
@@ -56,6 +57,11 @@ const routes = [
     component: GuestGraph,
     meta: { requiredAuth: false }
   },
+  {
+    path: '/oauth/line/callback',
+    component: LineCallback,
+    meta: { requiredAuth: false }
+  }
 ]
 
 const router = createRouter({

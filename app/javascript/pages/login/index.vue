@@ -73,6 +73,14 @@
         >
           ログイン
         </button>
+        <div
+          class="mb-20"
+        >
+          <p class="font-bold text-xl text-white text-center mb-10">
+            または
+          </p>
+          <LineLoginButton />
+        </div>
       </form>
     </div>
   </div>
@@ -80,9 +88,13 @@
 
 <script>
 import { mapActions } from 'vuex'
+import LineLoginButton from 'components/LineLoginButton.vue'
 
 export default {
   name: 'LoginIndex',
+  components: {
+    LineLoginButton
+  },
   data() {
     return {
       user: {

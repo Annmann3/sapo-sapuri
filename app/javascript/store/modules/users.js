@@ -66,6 +66,20 @@ export default {
         return null
       }
     },
+    //oauth用
+    async oauthSignin({ commit }, header) {
+      localStorage.setItem('client', header['client'])
+      localStorage.setItem('uid', header['uid'])
+      localStorage.setItem('access-token', header['access-token'])
+
+      axios.defaults.headers.common['client'] = header['client']
+      axios.defaults.headers.common['uid'] = header['uid']
+      axios.defaults.headers.common['access-token'] = header['access-token']
+      const userResponse = await axios.get('auth/validate_token')
+
+      commit('setAuthUser', userResponse.data.data)
+      return userResponse.data.data
+    },
     resetPasswordMail({ commit }, user) {
       const resetPasswordParams = {
         email: user.email,

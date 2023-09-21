@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       mount_devise_token_auth_for 'User', at: 'auth', controllers: {
-        registrations: 'api/v1/auth/registrations'
+        registrations: 'api/v1/auth/registrations',
+        omniauth_callbacks: 'api/v1/auth/omniauth_callbacks'
       }
       resources :nutrients, only: %i[index show]
       resources :dosages
@@ -13,5 +14,7 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'test', to: 'teset#index'
+  post 'test', to: 'teset#create'
   get '*path', to: 'static_pages#top'
 end
