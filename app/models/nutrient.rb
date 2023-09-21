@@ -11,34 +11,28 @@ class Nutrient < ApplicationRecord
 
   # 1分間隔の24時間の血中濃度の配列
   def calculate_24hours(dosages, start = Time.now)
-    blood_list = []
-    (24 * 60).times do |n|
-      data = {
+    (0...(24 * 60)).map do |n|
+      {
         x: start + n.minute,
-        y: dosages * calculate_per_dosages(n / 60.0)
+        y: dosages * calculate_concentration(n / 60.0)
       }
-      blood_list.push(data)
     end
-    blood_list
   end
 
   # 現在時刻から前後１２時間の濃度0の配列
   def calculate_zero
-    blood_list = []
-    (24 * 60).times do |n|
-      data = {
+    (0...(24 * 60)).map do |n|
+      {
         x: Time.now + n.minute - 12.hours,
         y: 0
       }
-      blood_list.push(data)
     end
-    blood_list
   end
 
   private
 
-  # 時刻tにおける単位容量あたりの血中濃度
-  def calculate_per_dosages(t)
+  # 服用してからt時間後の単位容量あたりの血中濃度
+  def calculate_concentration(t)
     vdf * ka * Math.exp(-ka * t) * t
   end
 end
