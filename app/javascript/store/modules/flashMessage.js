@@ -1,7 +1,7 @@
 export default {
   namespaced: true,
   state: {
-    isFlashMessage: true,
+    isFlashMessage: false,
     message: null,
     success: null,
     timeout: 5000,
