@@ -8,7 +8,7 @@ import PasswordEdit from '../pages/password/edit/index'
 import Graph from '../pages/graph/index'
 import GuestGraph from '../pages/guest-graph/index'
 import Dosages from '../pages/dosages/index'
-import LineCallback from '../pages/oauth/line/callback'
+import LineCallback from '../pages/oauth/line/Callback'
 import test from '../pages/graph/test'
 
 const routes = [
