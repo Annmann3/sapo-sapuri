@@ -141,11 +141,10 @@ export default {
     ...mapActions('users',['createUser']),
     async registerUser() {
       try {
-        debugger
         await this.createUser(this.user)
-        this.$router.push({ path: '/' })
-      } catch(error) {
-        console.log(error)
+        this.$router.push({ path: '/graph' })
+      } catch(err) {
+        this.$store.commit('flashMessage/setFlashMessage', err.response)
       }
     }
   }

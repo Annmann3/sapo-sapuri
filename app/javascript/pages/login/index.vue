@@ -93,14 +93,15 @@ import LineLoginButton from 'components/LineLoginButton.vue'
 export default {
   name: 'LoginIndex',
   components: {
-    LineLoginButton
+    LineLoginButton,
   },
   data() {
     return {
       user: {
         email: '',
         password: '',
-      }
+      },
+      errorMessage: null
     }
   },
   methods: {
@@ -109,8 +110,8 @@ export default {
       try {
         await this.signin(this.user)
         this.$router.push({ path: '/' })
-      } catch (error) {
-        console.log(error)
+      } catch (err) {
+        this.$store.commit('flashMessage/setFlashMessage', err.response)
       }
     }
   }
