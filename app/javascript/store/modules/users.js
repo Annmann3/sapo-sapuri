@@ -15,16 +15,20 @@ export default {
   },
   actions: {
     async signin({ commit }, loginUser) {
-      const userResponse = await axios.post('auth/sign_in', loginUser)
-        .catch(err => console.log(err))
-      localStorage.setItem('client', userResponse.headers['client'])
-      localStorage.setItem('uid', userResponse.headers['uid'])
-      localStorage.setItem('access-token', userResponse.headers['access-token'])
+      try {
+        const userResponse = await axios.post('auth/sign_in', loginUser)
+        localStorage.setItem('client', userResponse.headers['client'])
+        localStorage.setItem('uid', userResponse.headers['uid'])
+        localStorage.setItem('access-token', userResponse.headers['access-token'])
 
-      axios.defaults.headers.common['client'] = userResponse.headers['client']
-      axios.defaults.headers.common['uid'] = userResponse.headers['uid']
-      axios.defaults.headers.common['access-token'] = userResponse.headers['access-token']
-      commit('setAuthUser', userResponse.data)
+        axios.defaults.headers.common['client'] = userResponse.headers['client']
+        axios.defaults.headers.common['uid'] = userResponse.headers['uid']
+        axios.defaults.headers.common['access-token'] = userResponse.headers['access-token']
+        commit('setAuthUser', userResponse.data)
+      } catch (err) {
+        console.error('Sign-in failed', err)
+        throw err
+      }
     },
     async signout({ commit }) {
       await axios.delete('auth/sign_out')
@@ -65,6 +69,20 @@ export default {
       } else {
         return null
       }
+    },
+    //oauth用
+    async oauthSignin({ commit }, header) {
+      localStorage.setItem('client', header['client'])
+      localStorage.setItem('uid', header['uid'])
+      localStorage.setItem('access-token', header['access-token'])
+
+      axios.defaults.headers.common['client'] = header['client']
+      axios.defaults.headers.common['uid'] = header['uid']
+      axios.defaults.headers.common['access-token'] = header['access-token']
+      const userResponse = await axios.get('auth/validate_token')
+
+      commit('setAuthUser', userResponse.data.data)
+      return userResponse.data.data
     },
     resetPasswordMail({ commit }, user) {
       const resetPasswordParams = {
