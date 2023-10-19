@@ -11,20 +11,11 @@
     >
     </a>
   </div>
-
-  <button
-    type="button"
-    class="bg-blue-400 py-4 text-center px-17 md:px-12 md:py-4 text-white rounded leading-tight text-xl md:text-base font-sans mt-4 mb-20"
-    @click="axiosLogin">
-    ログイン
-  </button>
-{{ loginUrl }}
 </template>
 
 <script>
 import image from 'images/btn_login_base.png'
 import{ mapGetters  } from 'vuex'
-import axios from 'axios'
 
 export default {
   name: 'LineLoginButton',
@@ -68,17 +59,6 @@ export default {
       this.provider = this.authUser.provider
     }
   },
-  methods: {
-    async axiosLogin() {
-      await axios.post(this.omniauth_url, this.obj)
-      .then((response) => {
-        console.log(response)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-    }
-  }
 }
 </script>
 

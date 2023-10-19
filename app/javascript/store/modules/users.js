@@ -41,32 +41,30 @@ export default {
       axios.defaults.headers.common['access-token'] = ''
       commit('setAuthUser', null)
     },
-    createUser({ dispatch }, user) {
-      axios.post('auth/', user)
-        .then((res) => {
-          const loginUser = {
-            email: user.email,
-            password: user.password
-          }
-          dispatch('signin', loginUser)
-        })
-        .catch(err => console.log(err))
+    async createUser({ dispatch }, user) {
+      try {
+        const userResponse = await axios.post('auth/', user)
+        const loginUser = {
+          email: user.email,
+          password: user.password
+        }
+        await dispatch('signin', loginUser)
+      } catch (err) {
+        console.error('Create user failed', err)
+        throw err
+      }
     },
     //ユーザー情報の取得 or null
     async fetchAuthUser({ commit, state }) {
       if(!localStorage.getItem('access-token')) return null
       if(state.authUser) return state.authUser
-      //ヘッダーのuid access-token clientで取得
-      const userResponse = await axios.get('auth/validate_token')
-        .catch((err) => {
-          console.log(err)
-          return null
-        })
-
-      if (userResponse !== null) {
+      //axios defaults headerからユーザー認証を行う
+      try {
+        const userResponse = await axios.get('auth/validate_token')
         commit('setAuthUser', userResponse.data.data)
         return userResponse.data.data
-      } else {
+      } catch (err) {
+        console.log(err)
         return null
       }
     },

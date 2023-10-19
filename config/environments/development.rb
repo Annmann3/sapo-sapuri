@@ -31,7 +31,7 @@ Rails.application.configure do
   end
 
   # ngrokを許可する
-  config.hosts << '.jp.ngrok.io'
+  config.hosts << '.ngrok-free.app'
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
