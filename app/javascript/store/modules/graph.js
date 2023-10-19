@@ -23,9 +23,9 @@ export default {
       commit('setDataList', graphResponse.data)
       return graphResponse.data
     },
-    async getUserGraphData({ commit }, graphParams) {
+    async getUserGraphData({ commit }) {
       try {
-        const graphResponse = await axios.post('user_graph', graphParams)
+        const graphResponse = await axios.get('user_graph')
         commit('setDataList', graphResponse.data)
         return graphResponse.data
       } catch (err) {
