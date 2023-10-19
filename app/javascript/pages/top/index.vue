@@ -1,31 +1,22 @@
 <template>
-  <section class="top--part bg-cover bg-center">
-    <div class="mx-auto h-96 flex flex-col justify-end relative">
+  <div>
+    <section class="top--part bg-cover bg-center h-96 flex flex-col items-center justify-end relative">
       <div class="pb-16">
-        <h1 class="text-4xl font-bold text-white text-center">カラダの中のビタミンCが見える</h1>
-        <p class="text-white text-center">体に入ってくるビタミンが目でわかるから続けられる</p>
+        <h1 class="text-4xl font-bold text-white">カラダの中のビタミンCが見える</h1>
+        <p class="text-white">体に入ってくるビタミンが目でわかるから続けられる</p>
       </div>
-    </div>
-  </section>
-  <section>
-      <div class="text-center pt-10">
-        <BaseButton
-          :bgcolor="'bg-blue-400 hover:bg-blue-500'"
-          @click="goToGuestGraphPage"
-          >
-          使ってみる
-        </BaseButton>
-      </div>
-  </section>
-  <section>
-    <!--
-    <div class="mx-auto h-96 pt-10">
-      <div>
-        <h1 class="text-4xl font-bold text-center">使い方</h1>
-      </div>
-    </div>
-  -->
-  </section>
+    </section>
+
+
+    <section class="text-center pt-10">
+      <BaseButton
+        :bgcolor="'bg-blue-400 hover-bg-blue-500'"
+        @click="goToGuestGraphPage"
+      >
+        使ってみる
+      </BaseButton>
+    </section>
+  </div>
 </template>
 
 <script>
