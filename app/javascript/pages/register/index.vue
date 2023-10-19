@@ -142,6 +142,10 @@ export default {
     async registerUser() {
       try {
         await this.createUser(this.user)
+        this.$gtag.event('register', {
+          event_category: 'engagement',
+          event_label: 'register',
+        })
         this.$router.push({ path: '/graph' })
       } catch(err) {
         this.$store.commit('flashMessage/setFlashMessage', err.response)
