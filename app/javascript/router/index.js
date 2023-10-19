@@ -9,7 +9,10 @@ import Graph from '../pages/graph/index'
 import GuestGraph from '../pages/guest-graph/index'
 import Dosages from '../pages/dosages/index'
 import LineCallback from '../pages/oauth/line/Callback'
-import test from '../pages/graph/test'
+import PrivacyPolicy from '../pages/privacy-policy/index'
+import TermsOfService from '../pages/terms/index'
+import Notes from '../pages/notes/index'
+
 
 const routes = [
   {
@@ -48,11 +51,6 @@ const routes = [
     meta: { requiredAuth: true }
   },
   {
-    path: '/test',
-    component: test,
-    meta: { requiredAuth: false }
-  },
-  {
     path: '/guest-graph',
     component: GuestGraph,
     meta: { requiredAuth: false }
@@ -61,7 +59,22 @@ const routes = [
     path: '/oauth/line/callback',
     component: LineCallback,
     meta: { requiredAuth: false }
-  }
+  },
+  {
+    path: '/privacy-policy',
+    component: PrivacyPolicy,
+    meta: { requiredAuth: false }
+  },
+  {
+    path: '/terms',
+    component: TermsOfService,
+    meta: { requiredAuth: false }
+  },
+  {
+    path: '/notes',
+    component: Notes,
+    meta: { requiredAuth: false }
+  },
 ]
 
 const router = createRouter({
