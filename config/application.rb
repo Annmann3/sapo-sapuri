@@ -47,7 +47,9 @@ module SapoSapuri
       g.test_framework :rspec,
                        controller_spces: false,
                        view_specs: false,
-                       routing_spec: false
+                       routing_specs: false,
+                       request_specs: false,
+                       model_specs: false
     end
   end
 end

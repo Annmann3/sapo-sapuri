@@ -14,7 +14,7 @@
         :format="format"
       />
     </div>
-    <div class="flex flex-wrap items-stretch w-full relative h-15 bg-white items-center rounded mb-4">
+    <div class="flex flex-wrap items-stretch relative h-15 bg-white items-center rounded mb-4">
       <label for="dosageTime" />
       <Datepicker
         v-model="dosageTime"
@@ -22,11 +22,22 @@
         time-picker
       />
     </div>
+    <div class="flex flex-wrap items-stretch relative h-15 bg-white items-center rounded mb-4">
+      <label for="dosageAmount" />
+      <input
+        id="dosageAmount"
+        v-model="dosageAmount"
+        type="number"
+        name="dosageAmount"
+        class="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border h-10 border-grey-light rounded rounded-r-none px-3 relative"
+        placeholder="服用量"
+      />
+    </div>
     <BaseButton
     :bgcolor="'bg-blue-400 hover:bg-blue-500'"
     @click="submitDate"
     >
-      計算
+      服用
     </BaseButton>
   </form>
 </template>
@@ -46,6 +57,7 @@ export default {
   emits: ['caliculate'],
   //datepickerの設定はsetupで行う
   setup(props, context) {
+    const dosageAmount = ref(500)
     const dosageDate = ref(new Date())
     const dosageTime = ref({
       hours: new Date().getHours(),
@@ -56,7 +68,7 @@ export default {
       const dosageAt = new Date(dosageDate.value)
       dosageAt.setHours(dosageTime.value.hours)
       dosageAt.setMinutes(dosageTime.value.minutes)
-      context.emit('caliculate', dosageAt)
+      context.emit('caliculate', dosageAt, dosageAmount.value )
     }
 
     const allowedDates = computed(() => {
@@ -72,12 +84,14 @@ export default {
       return `${year}/${month}/${day}`
     }
 
+
     return {
       dosageDate,
       dosageTime,
       submitDate,
       allowedDates,
       format,
+      dosageAmount,
     }
   },
 }

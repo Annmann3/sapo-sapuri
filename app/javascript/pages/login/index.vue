@@ -10,6 +10,7 @@
         ログイン
       </h1>
       <form
+        id="login-form"
         action=""
         class="mt-2 flex flex-col w-11/12"
       >
@@ -70,9 +71,7 @@
           type="button"
           class="bg-blue-400 py-4 text-center px-17 md:px-12 md:py-4 text-white rounded leading-tight text-xl md:text-base font-sans mt-4 mb-20"
           @click="loginUser"
-        >
-          ログイン
-        </button>
+        >ログイン</button>
         <div
           class="mb-20"
         >
@@ -109,7 +108,7 @@ export default {
     async loginUser() {
       try {
         await this.signin(this.user)
-        this.$router.push({ path: '/' })
+        this.$router.push({ path: '/graph' })
       } catch (err) {
         this.$store.commit('flashMessage/setFlashMessage', err.response)
       }
