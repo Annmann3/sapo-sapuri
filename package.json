@@ -35,6 +35,7 @@
     "terser-webpack-plugin": "^5.3.3",
     "vue": "^3.2.36",
     "vue-chartjs": "^4.1.1",
+    "vue-gtag": "^2.0.1",
     "vue-loader": "^17.0.0",
     "vue-router": "^4.1.1",
     "vue-style-loader": "^4.1.3",

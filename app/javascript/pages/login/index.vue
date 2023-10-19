@@ -108,6 +108,10 @@ export default {
     async loginUser() {
       try {
         await this.signin(this.user)
+        this.$gtag.event('login', {
+          event_category: 'engagement',
+          event_label: 'login',
+        })
         this.$router.push({ path: '/graph' })
       } catch (err) {
         this.$store.commit('flashMessage/setFlashMessage', err.response)

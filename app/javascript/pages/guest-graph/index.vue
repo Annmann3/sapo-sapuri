@@ -75,6 +75,10 @@ export default {
     changeGraphParams(date, dosageAmount) {
       this.graphParams.dosage_at = date
       this.graphParams.amount = dosageAmount
+      this.$gtag.event('draw_guest_graph', {
+        event_category: 'engagement',
+        event_label: 'draw_guest_graph'
+      })
       this.fetchGraphData()
     },
   },
