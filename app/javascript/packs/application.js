@@ -16,10 +16,16 @@ import { createApp } from 'vue'
 import App from '../app.vue'
 import store from '../store/index'
 import router from '../router/index'
+import VueGtag from 'vue-gtag'
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = createApp(App)
   app.use(store)
   app.use(router)
   app.mount('#app')
+  app.use(VueGtag, {
+    appName: 'SAPO-C',
+    pageTrackerScreenviewEnabled: true,
+    config: { id: 'G-2FJ7449S2L'}
+  }, router)
 })
