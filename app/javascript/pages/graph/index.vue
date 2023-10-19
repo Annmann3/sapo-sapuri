@@ -23,20 +23,21 @@ export default {
   computed: {
     ...mapState({
       dosageList: state => state.dosages.dosageList,
+      
     }),
   },
   async mounted() {
     this.loaded = false
-    const datas = await this.getNutrinetDataByDosageAt()
+    const datas = await this.getUserGraphData(this.nutrient.id)
     try {
       this.chartData = datas
         this.loaded = true
-    } catch(error) {
-      console.log(error)
+    } catch(err) {
+      this.$store.commit('flashMessage/setFlashMessage',err)
     }
   },
   methods: {
-    ...mapActions('graph', ['getNutrinetData', 'getNutrinetDataByDosageAt']),
+    ...mapActions('graph', ['getUserGraphData']),
   },
 }
 </script>

@@ -5,12 +5,11 @@ class Api::V1::UserGraphController < ApplicationController
   # 複数のサプリメントを取得できるようにする予定
   def index
     dosage = current_api_v1_user.dosages.last_dosage
-    nutrient = dosage.nutrient
 
-    if dosage.dosage_at > 24.hours.ago
-      render json: nutrient.calculate_24hours(dosage.amount, dosage.dosage_at)
+    if dosage.blank? || dosage.dosage_at <= 24.hours.ago
+      render json: Nutrient.find(1).calculate_zero
     else
-      render json: nutrient.calculate_zero
+      render json: Nutrient.find(1).calculate_24hours(dosage.amount, dosage.dosage_at)
     end
   end
 end
