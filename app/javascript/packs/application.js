@@ -18,6 +18,9 @@ import store from '../store/index'
 import router from '../router/index'
 import VueGtag from 'vue-gtag'
 
+const isProduction = process.env.NODE_ENV === 'production'
+const trackingId = isProduction ? 'G-2FJ7449S2L' : 'G-Q58RMCNKDK'
+
 document.addEventListener('DOMContentLoaded', () => {
   const app = createApp(App)
   app.use(store)
@@ -25,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
   app.mount('#app')
   app.use(VueGtag, {
     appName: 'SAPO-C',
-    pageTrackerScreenviewEnabled: true,
-    config: { id: 'G-2FJ7449S2L'}
+    pageTrackerScreenviewEnabled: isProduction,
+    config: { id: trackingId }
   }, router)
 })
