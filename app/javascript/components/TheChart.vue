@@ -11,7 +11,6 @@ import { Line } from 'vue-chartjs'
 import 'chart.js/auto'
 import 'chartjs-adapter-moment'
 
-// 現在時刻以降の区間かを判定する
 const isFuture = (ctx, value) => ctx.p0.parsed.x > new Date() ? value : undefined
 
 export default {
@@ -35,43 +34,45 @@ export default {
     },
   },
   data() {
+    debugger
     return {
       chartObj: {
         datasets: [
           {
             label: this.nutrientName,
-            backgroundColor: 'rgb(238, 234, 189, 0.8)',
+            backgroundColor: 'rgb(238, 234, 189, 0.9)',
             borderColor: '#F8FD60',
-            cubicInterpolationMode: 'monotone',//曲線補完オプション。
+            cubicInterpolationMode: 'monotone',
             fill: true,
-            data: [...this.chartData],
+            data: [], // データはここにセットする
             pointStyle: 'dash',
-            order: 1, //描画順序
-            segment: { //未来区間のスタイル
+            order: 2,
+            segment: {
+              // 未来区間のスタイル
               borderColor: ctx => isFuture(ctx, 'rgb(0,0,0,0.2)'),
               backgroundColor: ctx => isFuture(ctx, 'rgb(0,0,0,0.1)'),
               borderDash: ctx => isFuture(ctx, [5,5])
             }
           },
           {
-            // 現在時刻の縦線
             type: 'bar',
             label: '現在時刻',
             backgroundColor: 'rgba(255, 99, 132, 0.9)',
             borderColor: 'rgb(201, 203, 207)',
             barPercentage: 0.1,
             order: 0,
-            data: [{x: new Date(), y: Math.max(...this.chartData.map(d => d.y))}],  // 値は最大値に合わせる
+            data: [{x: new Date(), y: 0}],  // 初期値
           },
         ]
       },
       chartOptions: {
+        responsive: true,
         scales: {
           xAxis: {
             type: 'time',
             time: {
               stepSize: 1,
-              displayFormats:{
+              displayFormats: {
                 hour: 'HH:mm',
               },
               ticks: {
@@ -85,10 +86,23 @@ export default {
           yAxis: {
             display: false,
             beginAtZero: true,
-           },
+          },
         },
       },
     }
   },
+  mounted() {
+    this.chartObj.datasets[0].data = this.sortChartData(this.chartData)
+    this.chartObj.datasets[1].data = [{x: new Date(), y: Math.max(...this.chartData.map(d => d.y))}];
+  },
+  methods: {
+    sortChartData(data) {
+      // chartDataをxキー（時刻）でソートし、日付オブジェクトとして扱えるようにする
+      return data.slice().sort((a, b) => {
+        return new Date(a.x) - new Date(b.x)
+      })
+    },
+  },
 }
 </script>
+

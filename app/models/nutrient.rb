@@ -29,10 +29,38 @@ class Nutrient < ApplicationRecord
     end
   end
 
+  def calculate_combined_24hours(dosages)
+    data = []
+    dosages.each do |dosage|
+      data += (0...(24 * 60)).map do |n|
+        {
+          x: dosage.at_min + n.minute,
+          y: dosage.amount * calculate_concentration(n / 60.0)
+        }
+      end
+    end
+    merge_duplicate_x(data)
+  end
+
   private
 
   # 服用してからt時間後の単位容量あたりの血中濃度
   def calculate_concentration(t)
     vdf * ka * Math.exp(-ka * t) * t
+  end
+
+  def merge_duplicate_x(data)
+    result = {}
+    data.each do |d|
+      x = d[:x]
+      y = d[:y]
+
+      if result.key?(x)
+        result[x] += y
+      else
+        result[x] = y
+      end
+    end
+    result.map { |x, y| { x:, y: } }
   end
 end

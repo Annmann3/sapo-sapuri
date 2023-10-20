@@ -1,15 +1,14 @@
 class Api::V1::UserGraphController < ApplicationController
   before_action :authenticate_api_v1_user!, only: %i[index]
 
-  # 24時間以内の最後に服用したサプリのグラフデータ
-  # 複数のサプリメントを取得できるようにする予定
+  # 24時間以内の服用したサプリのグラフデータ
   def index
-    dosage = current_api_v1_user.dosages.last_dosage
+    dosages = current_api_v1_user.dosages.in_24hours
 
-    if dosage.blank? || dosage.dosage_at <= 24.hours.ago
+    if dosages.blank?
       render json: Nutrient.find(1).calculate_zero
     else
-      render json: Nutrient.find(1).calculate_24hours(dosage.amount, dosage.dosage_at)
+      render json: Nutrient.find(1).calculate_combined_24hours(dosages)
     end
   end
 end
