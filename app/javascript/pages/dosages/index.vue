@@ -3,7 +3,7 @@
     服用履歴
   </h1>
   <BaseButton
-  :bgcolor="'bg-sky-400 hover:bg-sky-500'"
+  :bgcolor="'bg-blue-400 hover:bg-blue-500'"
   class="block mx-auto mb-3"
   @click="handleShowCreateModal"
   >
@@ -105,11 +105,12 @@ export default {
       this.isVisibleDosageCreateModal = false
     },
     async handleCreateDosage(dosage) {
+      debugger
       try {
         await this.createDosage(dosage)
         this.handleCloseCreateModal()
       } catch(err) {
-        console.log(err)
+        this.$store.commit('flashMessages/setFlashMessage', err.response)
       }
     },
     async handleDeleteDosage(dosage) {

@@ -13,7 +13,11 @@ class Api::V1::DosagesController < ApplicationController
     if @dosage.save
       render json: @dosage
     else
-      render json: @dosage.errors
+      byebug
+      render json: {
+        status: 'error',
+        errors: @dosage.errors
+      }, status: 401
     end
   end
 
