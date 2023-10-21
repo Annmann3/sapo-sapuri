@@ -34,7 +34,6 @@ export default {
     },
   },
   data() {
-    debugger
     return {
       chartObj: {
         datasets: [
