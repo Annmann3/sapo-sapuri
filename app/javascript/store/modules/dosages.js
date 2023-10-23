@@ -37,25 +37,24 @@ export default {
         .catch((err) => {
           console.log(err)
         })
-      // dosageがないときの処理
     },
-    createDosage({ commit }, dosage) {
-      axios.post('dosages', dosage)
-        .then((res) => {
-          commit('addDosage', res.data)
-        })
-        .catch((err) => {
-          console.log(err)
-        })
+    async createDosage({ commit }, dosage) {
+      try{
+        const dosageResponse = await axios.post('dosages', dosage)
+        commit('addDosage', dosageResponse.data)
+      } catch (err) {
+        console.error(err)
+        throw err
+      }
     },
-    updateDosage({ commit }, dosage) {
-      axios.patch(`dosages/${dosage.id}`, dosage)
-        .then((res) => {
-          commit('updateDosage', res.data)
-        })
-        .catch((err) => {
-          console.log(err)
-        })
+    async updateDosage({ commit }, dosage) {
+      try {
+        const dosageResponse = await axios.patch(`dosages/${dosage.id}`, dosage)
+        commit('updateDosage', dosageResponse.data)
+      } catch (err) {
+        console.error(err)
+        throw err
+      }
     },
     deleteDosage({ commit }, dosage) {
       axios.delete(`dosages/${dosage.id}`)
