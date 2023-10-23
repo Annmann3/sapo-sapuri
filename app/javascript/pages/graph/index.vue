@@ -1,18 +1,28 @@
 <template>
-  <Graph
-    v-if="loaded"
-    :chart-data="chartData"
-    :nutrient-name="nutrient.name"
-  />
+  <section class="mx-auto">
+  <div class="flex flex-wrap justify-center items-stretch">
+    <TheChart
+      v-if="loaded"
+      :chart-data="chartData"
+      :nutrient-name="nutrient.name"
+    />
+    <div class="self-center mt-6 md:mt-0 md:ml-6">
+      <DosageForm
+        @caliculate="changeGraphParams"
+      />
+    </div>
+  </div>
+  </section>
 </template>
 
 <script>
-import Graph from '../../components/TheChart'
+import TheChart from '../../components/TheChart'
+import DosageForm from './DosageForm'
 import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'GraphIndex',
-  components: { Graph },
+  components: { TheChart, DosageForm },
   data() {
     return {
       loaded: false, //グラフの描画が完了したかどうか

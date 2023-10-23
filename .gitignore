@@ -45,7 +45,11 @@ yarn-debug.log*
 !/app/assets/builds/.keep
 *.swp
 
-jsconfig.json
+/jsconfig.json
 .eslintrc.js
+.eslintrc.js
+.prettier.json
 .env
 ngrok
+**/.rubocop.yml
+Procfile.dev
