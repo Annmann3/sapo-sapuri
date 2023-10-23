@@ -105,21 +105,20 @@ export default {
       this.isVisibleDosageCreateModal = false
     },
     async handleCreateDosage(dosage) {
-      debugger
       try {
         await this.createDosage(dosage)
         this.handleCloseCreateModal()
       } catch(err) {
-        this.$store.commit('flashMessages/setFlashMessage', err.response)
+        debugger
+        this.$store.commit('flashMessage/setFlashMessage', err.response)
       }
     },
     async handleDeleteDosage(dosage) {
-      debugger
         try {
           await this.deleteDosage(dosage)
           this.handleCloseEditModal()
         } catch(err) {
-          console.log(err)
+          this.$store.commit('flashMessage/setFlashMessage', err.response)
         }
     },
   },

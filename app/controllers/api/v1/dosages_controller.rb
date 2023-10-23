@@ -13,9 +13,8 @@ class Api::V1::DosagesController < ApplicationController
     if @dosage.save
       render json: @dosage
     else
-      byebug
       render json: {
-        status: 'error',
+        success: false,
         errors: @dosage.errors
       }, status: 401
     end
@@ -25,7 +24,10 @@ class Api::V1::DosagesController < ApplicationController
     if @dosage.update(dosage_params)
       render json: @dosage
     else
-      render json: @dosage.errors
+      render json: {
+        success: false,
+        errors: @dosage.errors
+      }, status: 401
     end
   end
 

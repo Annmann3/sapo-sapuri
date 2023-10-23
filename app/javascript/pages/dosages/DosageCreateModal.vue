@@ -1,6 +1,6 @@
 <template>
   <div class="bg-blue-200 flex rounded-lg shadow-md">
-    <div class="flex-col flex ml-auto mr-auto items-center w-full">
+    <div class="flex-col flex ml-auto mr-auto items-center w-full mb-6">
       <h1 class="font-bold text-2xl my-10 text-white">
         服用登録
       </h1>
@@ -29,7 +29,10 @@
             <label for="dosage_date" class="block text-gray-700 text-xl"/>
             <VueDatePicker
               v-model="date"
+              uid="dosage_date"
               :enable-time-picker="false"
+              :max-date="allowedDate"
+              :format="'yyyy/MM/dd'"
               auto-apply
               class="leading-normal border-0 border-grey-light h-15 px-3 relative self-center font-roboto text-xl outline-none"
             />
@@ -38,6 +41,7 @@
             <label for="dosage_time" class="block text-gray-700 text-xl"/>
             <VueDatePicker
               v-model="time" 
+              uid="dosage_time"
               time-picker
               text-input
               auto-apply
@@ -55,25 +59,33 @@
             placeholder="服用量"
           >
         </div>
-        <BaseButton
-        :bgcolor="'bg-blue-400 hover:bg-blue-500'"
-        @click="submitDosage"
-        >
-          登録
-        </BaseButton>
-        <BaseButton
-          :bgcolor="'bg-gray-400 hover:bg-gray-500'"
-          @click="closeModal"
-          >
-          キャンセル
-        </BaseButton>
+          <div class="flex-col items-center justify-center w-full">
+            <div class="text-center mb-2">
+              <BaseButton
+              :bgcolor="'bg-blue-400 hover:bg-blue-500'"
+              class="w-1/2 mb-2"
+              @click="submitDosage"
+              >
+                登録
+              </BaseButton>
+            </div>
+            <div class="text-center">
+              <BaseButton
+                :bgcolor="'bg-gray-400 hover:bg-gray-500'"
+                class="w-1/2 mb-2"
+                @click="closeModal"
+                >
+                キャンセル
+              </BaseButton>
+            </div>
+        </div>
       </form>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, defineEmits } from 'vue';
+import { ref, defineEmits, computed} from 'vue';
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import BaseButton from '../../components/BaseButton';
@@ -91,14 +103,19 @@ const time = ref({
   minute: currentDateTime.getMinutes(),
 });
 const date = ref(new Date());
-
 const options = [
   { id: 1, name: 'ビタミンC' },
 ];
+
+const allowedDate = computed(() => {
+  const today = new Date();
+  today.setDate(today.getDate() + 1);
+  return today;
+});
+
 const closeModal = () => {
   emits('closeCreateModal');
 };
-
 
 const submitDosage = () => {
   const dosageAt = new Date(date.value)
