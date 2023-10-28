@@ -68,3 +68,5 @@ gem 'devise_token_auth'
 gem 'omniauth-oauth2'
 gem 'omniauth-rails_csrf_protection'
 gem 'rack-cors'
+
+gem 'line-bot-api'
