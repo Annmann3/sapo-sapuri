@@ -9,7 +9,6 @@ class Nonce < ActiveRecord::Base
   private
 
   def generated_nonce
-    random_data = SecureRandom.random_bytes(16)
-    self.val = Base64.strict_encode64(random_data)
+    self.val = random_data = SecureRandom.urlsafe_base64(16)
   end
 end
