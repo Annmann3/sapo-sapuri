@@ -16,30 +16,27 @@ class Api::V1::LineBotController < ApplicationController
     unless client.validate_signature(body, signature)
       error 400 do 'Bad Request' end
     end
-    puts 'callback'
 
     events = client.parse_events_from(body)
     events.each do |event|
       user_id = event['source']['userId']
-      sns_auth = Authentication.find_by(provider: 'line', uid: user_id)
+      auth = Authentication.find_by(provider: 'line', uid: user_id)
 
       case event
       when Line::Bot::Event::Message
         case event.type
         when Line::Bot::Event::MessageType::Text
           if event.message['text'] == 'LINE連携'
-            if !sns_auth
-              puts '連携済み'
+            if auth
               message = {
                 type: 'text',
                 text: '連携済みです'
               }
               client.reply_message(event['replyToken'], message)
             else
-              puts '連携開始'
               message = {
                 type: 'text',
-                text: '連携を開始します。\nしばらくお待ち下さい。'
+                text: "連携を開始します。\nしばらくお待ち下さい。"
               }
 
               client.reply_message(event['replyToken'], message)
@@ -94,12 +91,10 @@ class Api::V1::LineBotController < ApplicationController
           tf.write(response.body)
         end
       when Line::Bot::Event::AccountLink
-        puts 'AccountLink'
         if event.result == 'ok'
           nonce = Nonce.find_by(val: event.nonce)
           user = nonce.user
           user.authentications.create(provider: 'line', uid: event['source']['userId'])
-          nonce.destroy
           client.reply_message(event['replyToken'], { type: 'text', text: '連携が完了しました。' })
         else
           client.reply_message(event['replyToken'], { type: 'text', text: '連携に失敗しました。' })
