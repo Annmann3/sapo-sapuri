@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       resources :dosages
       resources :user_graph, only: %i[index]
       resources :guest_user_graph, only: %i[create]
-      resources :line_integration, only: %i[create]
+      resources :line_integration, only: %i[create destroy]
       post 'callback', to: 'line_bot#callback'
     end
   end
