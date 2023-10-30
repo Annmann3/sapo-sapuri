@@ -93,6 +93,17 @@ class Api::V1::LineBotController < ApplicationController
           tf = Tempfile.open('content')
           tf.write(response.body)
         end
+      when Line::Bot::Event::AccountLink
+        puts 'AccountLink'
+        if event.result == 'ok'
+          nonce = Nonce.find_by(val: event.nonce)
+          user = nonce.user
+          user.authentications.create(provider: 'line', uid: event['source']['userId'])
+          nonce.destroy
+          client.reply_message(event['replyToken'], { type: 'text', text: '連携が完了しました。' })
+        else
+          client.reply_message(event['replyToken'], { type: 'text', text: '連携に失敗しました。' })
+        end
       end
     end
 
