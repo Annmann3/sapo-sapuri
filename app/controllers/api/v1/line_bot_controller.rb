@@ -32,6 +32,13 @@ class Api::V1::LineBotController < ApplicationController
                 type: 'text',
                 text: '連携済みです'
               }
+              # ユーザーのリッチメニューを変更
+              uri = URI.parse("https://api.line.me/v2/bot/user/#{user_id}/richmenu/#{ENV['LINE_MESSAGING_API_RICHMENU_ID']}")
+              request = Net::HTTP::Post.new(uri)
+              request['Authorization'] = "Bearer #{ENV['LINE_MESSAGING_API_TOKEN']}"
+              response = Net::HTTP.start(uri.host, uri.port) do |http|
+                http.request(request)
+              end
               client.reply_message(event['replyToken'], message)
             else
               message = {
@@ -78,6 +85,13 @@ class Api::V1::LineBotController < ApplicationController
               response = Net::HTTP.start(uri.host, uri.port) do |http|
                 http.request(request)
               end
+            end
+          elsif event.message['text'] == '連携を解除する'
+            uri = URI.parse("https://api.line.me/v2/bot/user/#{user_id}/richmenu")
+            request = Net::HTTP::Delete.new(uri)
+            request['Authorization'] = "Bearer #{ENV['LINE_MESSAGING_API_TOKEN']}"
+            response = Net::HTTP.start(uri.host, uri.port) do |http|
+              http.request(request)
             end
           end
           message = {

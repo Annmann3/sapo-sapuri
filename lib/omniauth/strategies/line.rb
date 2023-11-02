@@ -1,5 +1,4 @@
 require 'omniauth-oauth2'
-require 'json'
 
 module OmniAuth
   module Strategies
@@ -34,11 +33,11 @@ module OmniAuth
         }
       end
 
-      # リクエストにnonceを追加
       def authorize_params
         super.tap do |params|
           params[:nonce] = SecureRandom.uuid
           session['omniauth.nonce'] = params[:nonce]
+          params[:bot_prompt] = 'aggressive'
         end
       end
 
