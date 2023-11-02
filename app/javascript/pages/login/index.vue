@@ -86,13 +86,31 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { onBeforeMount } from 'vue'
+import { useStore, mapActions } from 'vuex'
+import { useRouter } from 'vue-router'
 import LineLoginButton from 'components/LineLoginButton.vue'
+import liff from '@line/liff'
 
 export default {
   name: 'LoginIndex',
   components: {
     LineLoginButton,
+  },
+  setup() {
+    const store = useStore()
+    const router = useRouter()
+    onBeforeMount(async() => {
+      if (!liff.isInClient()) return
+      try{
+        await liff.init({ liffId: "1657856004-vZD7o7pQ" })
+        const id_token = liff.getIDToken()
+        await store.dispatch('users/signinWithLineIdToken', id_token)
+        router.push({ path: '/graph' })
+      } catch (err) {
+      }
+    }
+    )
   },
   data() {
     return {

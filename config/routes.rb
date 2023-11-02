@@ -12,11 +12,10 @@ Rails.application.routes.draw do
       resources :user_graph, only: %i[index]
       resources :guest_user_graph, only: %i[create]
       resources :line_integration, only: %i[create destroy]
+      post 'liff_sign_in', to: 'liff_sessions#create'
       post 'callback', to: 'line_bot#callback'
     end
   end
 
-  get 'test', to: 'teset#index'
-  post 'test', to: 'teset#create'
   get '*path', to: 'static_pages#top'
 end

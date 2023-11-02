@@ -87,6 +87,21 @@ export default {
         throw err
       }
     },
+    async signinWithLineIdToken({ commit }, lineIdToken) {
+      try {
+        const userResponse = await axios.post('liff_sign_in', {id_token: lineIdToken})
+        localStorage.setItem('client', userResponse.headers['client'])
+        localStorage.setItem('uid', userResponse.headers['uid'])
+        localStorage.setItem('access-token', userResponse.headers['access-token'])
+        axios.defaults.headers.common['client'] = userResponse.headers['client']
+        axios.defaults.headers.common['uid'] = userResponse.headers['uid']
+        axios.defaults.headers.common['access-token'] = userResponse.headers['access-token']
+        commit('setAuthUser', userResponse.data.data)
+      } catch (err) {
+        console.error('signinWithLineIdToken failed', err)
+        throw err
+      }
+    },
     resetPasswordMail({ commit }, user) {
       const resetPasswordParams = {
         email: user.email,
