@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
   has_many :dosages, dependent: :destroy
   has_many :authentications, dependent: :destroy
+  has_one :nonce, dependent: :destroy
 
   def self.from_omniauth(auth)
     if authentication.user.present?

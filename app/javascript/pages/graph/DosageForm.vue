@@ -4,6 +4,23 @@
     class="mt-2 flex flex-col"
   >
     <div class="flex flex-wrap items-stretch relative h-15 bg-white items-center rounded mb-4">
+
+      <label for="nutrient_id" />
+      <select
+        id="nutrient_id"
+        class="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border h-10 border-grey-light rounded rounded-r-none px-3 relative"
+      >
+        <option
+          v-for="nutrient in nutrients"
+          :key="nutrient.id"
+          :value="nutrient.id"
+        >
+          {{ nutrient.name }}
+        </option>
+        </select>
+    </div>
+
+    <div class="flex flex-wrap items-stretch relative h-15 bg-white items-center rounded mb-4">
       <label for="dosageDate" />
       <Datepicker
         v-model="dosageDate"
@@ -30,8 +47,12 @@
         type="number"
         name="dosageAmount"
         class="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border h-10 border-grey-light rounded rounded-r-none px-3 relative"
-        placeholder="服用量"
+        placeholder="服用量mg" 
       />
+      
+       <p class="flex items-center leading-normal border h-10 rounded rounded-r-none relative">
+         <span class="mx-auto">mg</span>
+       </p>
     </div>
     <BaseButton
     :bgcolor="'bg-blue-400 hover:bg-blue-500'"
@@ -63,12 +84,21 @@ export default {
       hours: new Date().getHours(),
       minutes: new Date().getMinutes(),
     })
+    const nutrients = [{
+      id: 1,
+      name: 'ビタミンC'
+    }]
 
     const submitDate = () => {
       const dosageAt = new Date(dosageDate.value)
       dosageAt.setHours(dosageTime.value.hours)
       dosageAt.setMinutes(dosageTime.value.minutes)
-      context.emit('caliculate', dosageAt, dosageAmount.value )
+      const dosageParams = {
+        nutrient_id: 1,
+        amount: dosageAmount.value,
+        dosage_at: dosageAt,
+      }
+      context.emit('caliculate', dosageParams)
     }
 
     const allowedDates = computed(() => {
@@ -76,6 +106,10 @@ export default {
       const tommorow = new Date(new Date().setDate(new Date().getDate() + 1))
       return [yesterday, tommorow]
     })
+
+    const formatDosage = () => {
+      dosageAmount.value = dosageAmount.value
+    }
 
     const format = (date) => {
       const year = date.getFullYear()
@@ -88,6 +122,7 @@ export default {
     return {
       dosageDate,
       dosageTime,
+      nutrients,
       submitDate,
       allowedDates,
       format,
