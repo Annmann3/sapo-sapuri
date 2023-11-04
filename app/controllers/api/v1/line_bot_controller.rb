@@ -57,7 +57,7 @@ class Api::V1::LineBotController < ApplicationController
               link_token = JSON(response.body)['linkToken']
 
               uri = URI.parse('https://api.line.me/v2/bot/message/push')
-              origin = 'https://3c09-2001-f71-bec0-2300-2944-eca4-a7fe-2fdc.ngrok-free.app'
+              origin = ENV['RAILS_URL_ORIGIN']
               integration_uri = "#{origin}/line-integration?linkToken=#{link_token}"
 
               request = Net::HTTP::Post.new(uri)
