@@ -1,3 +1,4 @@
+import {locale} from 'dayjs'
 import axios from '../../plugins/axios'
 
 export default {
@@ -51,6 +52,39 @@ export default {
         await dispatch('signin', loginUser)
       } catch (err) {
         console.error('Create user failed', err)
+        throw err
+      }
+    },
+    async updateUser({ commit }, user) {
+      try {
+        const userResponse = await axios.patch('auth/', user)
+        debugger
+        commit('setAuthUser', userResponse.data.data)
+        localStorage.setItem('client', userResponse.headers['client'])
+        localStorage.setItem('uid', userResponse.headers['uid'])
+        localStorage.setItem('access-token', userResponse.headers['access-token'])
+
+        axios.defaults.headers.common['client'] = userResponse.headers['client']
+        axios.defaults.headers.common['uid'] = userResponse.headers['uid']
+        axios.defaults.headers.common['access-token'] = userResponse.headers['access-token']
+      } catch (err) {
+        console.error('Update user failed', err)
+        throw err
+      }
+    },
+    async deleteUser({ commit }, user) {
+      try {
+        const userResponse = await axios.delete('auth/', user)
+        commit('setAuthUser', null)
+        localStorage.removeItem('client')
+        localStorage.removeItem('uid')
+        localStorage.removeItem('access-token')
+
+        axios.defaults.headers.common['client'] = ''
+        axios.defaults.headers.common['uid'] = ''
+        axios.defaults.headers.common['access-token'] = ''
+      } catch (err) {
+        console.error('Delete user failed', err)
         throw err
       }
     },
