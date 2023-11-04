@@ -6,12 +6,15 @@
   <div class="bg-blue-200 flex">
     <div class="flex-col flex ml-auto mr-auto items-center w-full">
       <h1 class="font-bold text-2xl my-10 text-white">
-        ログイン
+        ログイン LINE連携
       </h1>
       <form
         id="login-form"
-        action=""
+        ref="loginForm"
+        method="post"
+        :action="loginUrl"
         class="mt-2 flex flex-col w-11/12"
+        @submit.prevent="loginUser"
       >
         <div class="flex flex-wrap items-stretch w-full mb-4 relative h-15 bg-white items-center rounded mb-6 pr-10">
           <div class="flex -mr-px justify-center w-15 p-4">
@@ -25,6 +28,7 @@
           <input
             id="email"
             v-model="user.email"
+            name="email"
             type="email"
             class="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border-0 h-10 border-grey-light rounded rounded-l-none px-3 self-center relative  font-roboto text-xl outline-none"
             placeholder="email"
@@ -34,7 +38,7 @@
           <div class="flex -mr-px justify-center w-15 p-4">
             <span
               class="flex items-center leading-normal bg-white rounded rounded-r-none text-xl px-3 whitespace-no-wrap text-gray-600"
-            > 
+            >
               <i class="fas fa-lock" />
             </span>
           </div>
@@ -42,6 +46,7 @@
           <input
             id="password"
             v-model="user.password"
+            name="password"
             type="password"
             class="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border-0 h-10 px-3 relative self-center font-roboto text-xl outline-none"
             placeholder="Password"
@@ -54,6 +59,11 @@
             </span>
           </div>
         </div>
+        <input
+          type="hidden"
+          name="link_token"
+          :value="linkToken"
+        />
         <router-link
           :to="{ path: '/password' }"
           class="text-base text-white text-right font-roboto leading-normal hover:underline mb-6"
@@ -67,73 +77,45 @@
           新規登録
         </router-link>
         <button
-          type="button"
+          type="submit"
           class="bg-blue-400 py-4 text-center px-17 md:px-12 md:py-4 text-white rounded leading-tight text-xl md:text-base font-sans mt-4 mb-20"
-          @click="loginUser"
         >ログイン</button>
-        <div
-          class="mb-20"
-        >
-          <p class="font-bold text-xl text-white text-center mb-10">
-            または
-          </p>
-          <LineLoginButton />
-        </div>
       </form>
     </div>
   </div>
 </template>
 
-<script>
-import { onBeforeMount } from 'vue'
-import { useStore, mapActions } from 'vuex'
-import { useRouter } from 'vue-router'
-import LineLoginButton from 'components/LineLoginButton.vue'
-import liff from '@line/liff'
+<script setup>
+import { ref, computed} from 'vue'
+import { useRoute } from 'vue-router'
+import { useStore } from 'vuex'
 
-export default {
-  name: 'LoginIndex',
-  components: {
-    LineLoginButton,
-  },
-  setup() {
-    const store = useStore()
-    const router = useRouter()
-    onBeforeMount(async() => {
-      if (!liff.isInClient()) return
-      try{
-        await liff.init({ liffId: "1657856004-vZD7o7pQ" })
-        const id_token = liff.getIDToken()
-        await store.dispatch('users/signinWithLineIdToken', id_token)
-        router.push({ path: '/graph' })
-      } catch (err) {
-      }
+const route = useRoute()
+const store = useStore()
+const user = ref({
+  email: '',
+  password: ''
+})
+const linkToken = route.query.linkToken
+const loginForm = ref(null);
+
+
+const loginUrl = computed(() => {
+  const host = window.location.origin
+  return `${host}/api/v1/line_integration`
+})
+
+// CORSのプリフライトリクエストのエラー回避のため、form要素を使ってPOSTリクエストを送る
+// submit後の遷移を起こす前にuserを検証する
+const loginUser = async () => {
+  try {
+    await store.dispatch('users/signin', user.value)
+    if (loginForm.value) {
+      loginForm.value.submit()
     }
-    )
-  },
-  data() {
-    return {
-      user: {
-        email: '',
-        password: '',
-      },
-      errorMessage: null
-    }
-  },
-  methods: {
-    ...mapActions('users',['signin']),
-    async loginUser() {
-      try {
-        await this.signin(this.user)
-        this.$gtag.event('login', {
-          event_category: 'engagement',
-          event_label: 'login',
-        })
-        this.$router.push({ path: '/graph' })
-      } catch (err) {
-        this.$store.commit('flashMessage/setFlashMessage', err.response)
-      }
-    }
+  } catch(err) {
+    store.commit('flashMessage/setFlashMessage', err.response)
   }
 }
+
 </script>

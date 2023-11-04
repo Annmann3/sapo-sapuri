@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-const baseUrl = (process.env.NODE_ENV === 'production') ? process.env.API_URL : 'api/v1'
+const baseUrl = (process.env.NODE_ENV === 'production') ? process.env.API_URL : 
+  `${window.location.origin}/api/v1/`
 const axiosInstance = axios.create({
   baseURL: baseUrl
 })

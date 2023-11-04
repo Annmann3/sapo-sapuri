@@ -8,7 +8,7 @@
     />
     <div class="self-center mt-6 md:mt-0 md:ml-6">
       <DosageForm
-        @caliculate="changeGraphParams"
+        @caliculate="handleCreateDosage"
       />
     </div>
   </div>
@@ -38,16 +38,28 @@ export default {
   },
   async mounted() {
     this.loaded = false
-    const datas = await this.getUserGraphData(this.nutrient.id)
     try {
+      const datas = await this.getUserGraphData(this.nutrient.id)
       this.chartData = datas
-        this.loaded = true
+      this.loaded = true
     } catch(err) {
       this.$store.commit('flashMessage/setFlashMessage',err)
     }
   },
   methods: {
     ...mapActions('graph', ['getUserGraphData']),
+    ...mapActions('dosages', ['createDosage']),
+    async handleCreateDosage(dosage) {
+      try {
+        await this.$store.dispatch('dosages/createDosage', dosage)
+        this.loaded = false
+        const datas = await this.getUserGraphData(this.nutrient.id)
+        this.chartData = datas
+        this.loaded = true
+      } catch(err) {
+        this.$store.commit('flashMessage/setFlashMessage',err.response)
+      }
+    },
   },
 }
 </script>

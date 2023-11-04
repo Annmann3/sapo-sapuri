@@ -12,6 +12,7 @@ import LineCallback from '../pages/oauth/line/Callback'
 import PrivacyPolicy from '../pages/privacy-policy/index'
 import TermsOfService from '../pages/terms/index'
 import Notes from '../pages/notes/index'
+import LineIntegration from '../pages/line-integration/index'
 
 
 const routes = [
@@ -75,6 +76,11 @@ const routes = [
     component: Notes,
     meta: { requiredAuth: false }
   },
+  {
+    path: '/line-integration',
+    component: LineIntegration,
+    meta: { requiredAuth: false }
+  }
 ]
 
 const router = createRouter({
