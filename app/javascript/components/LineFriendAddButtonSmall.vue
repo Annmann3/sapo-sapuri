@@ -1,10 +1,15 @@
 <template>
-  <a href="https://lin.ee/cG0WO9Y">
-      <img src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png" alt="友だち追加" height="36" border="0">
-  </a>
+<div class="line-it-button" data-lang="ja" data-type="friend" data-env="REAL" data-lineId="@433onjos" style="display: none;"></div>
 </template>
 
-<script>
-export default {
-  name: 'LineFriendAddButtonSmall',
-}
+<script setup>
+import { ref, onMounted } from 'vue'
+
+onMounted(() => {
+  const script = document.createElement('script')
+  script.src = 'https://www.line-website.com/social-plugins/js/thirdparty/loader.min.js'
+  script.async = true
+  script.defer = true
+  document.body.appendChild(script)
+})
+</script>
