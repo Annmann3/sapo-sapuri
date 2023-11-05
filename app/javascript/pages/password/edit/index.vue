@@ -60,10 +60,6 @@
             </span>
           </div>
         </div>
-        <a
-          href="#"
-          class="text-base text-white text-right font-roboto leading-normal hover:underline mb-6"
-        >Forget Password ?</a>
         <button
           type="button"
           class="bg-blue-400 py-4 text-center px-17 md:px-12 md:py-4 text-white rounded leading-tight text-xl md:text-base font-sans mt-4 mb-20"
@@ -92,18 +88,17 @@ export default {
   methods: {
     ...mapActions('users', ['updatePassword']),
     async sendPassword() {
+      const urlParams = this.$route.query
+      const headers = {
+        'access-token': urlParams['access-token'],
+        'uid': urlParams['uid'],
+        'client': urlParams['client'],
+      }
       try {
-        // パスワードリセットに必要なパラメータを取得
-        const urlParams = this.$route.query
-        const headers = {
-          'access-token': urlParams['access-token'],
-          'uid': urlParams['uid'],
-          'client': urlParams['client'],
-        }
         await this.updatePassword({user: this.user, headers: headers})
-        this.$router.push({ path: '/' })
-      } catch(error) {
-        console.log(error)
+        this.$router.push({ path: '/login' })
+      } catch(err) {
+        this.$store.commit('flashMessage/setFlashMessage',err.response)
       }
     }
   }

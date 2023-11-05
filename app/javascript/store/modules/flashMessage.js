@@ -9,8 +9,12 @@ export default {
   mutations: {
     setFlashMessage(state, response) {
       state.isFlashMessage = true
-      state.message = response.data.errors[0]
       state.success = response.data.success
+      if(typeof response.data.errors === 'object'){
+        state.message = response.data.errors.full_messages[0]
+      } else {
+        state.message = response.data.errors[0]
+      }
       
       setTimeout(() => {
         state.isFlashMessage = false
