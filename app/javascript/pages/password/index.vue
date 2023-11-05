@@ -70,18 +70,27 @@ export default {
       user: {
         email: '',
       },
+      redirect_url: '',
       isSentEmail: false,
     }
+  },
+  mounted() {
+    const origin = window.location.origin
+    this.redirect_url = `${origin}/password/edit`
   },
   methods: {
     ...mapActions('users', ['resetPasswordMail']),
     async sendEmail() {
-      await this.resetPasswordMail(this.user)
-      this.isSentEmail = true
+      try {
+        await this.$store.dispatch('users/resetPasswordMail', { user: this.user, redirect_url: this.redirect_url })
+        this.isSentEmail = true
+      } catch(err) {
+        this.$store.commit('flashMessage/setFlashMessage',err.response)
+      }
     },
     moveTopPage() {
       this.$router.push({ path: '/' })
     }
-  }
+  },
 }
 </script>

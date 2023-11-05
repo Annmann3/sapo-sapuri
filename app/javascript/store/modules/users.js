@@ -1,3 +1,4 @@
+import {locale} from 'dayjs'
 import axios from '../../plugins/axios'
 
 export default {
@@ -54,6 +55,38 @@ export default {
         throw err
       }
     },
+    async updateUser({ commit }, user) {
+      try {
+        const userResponse = await axios.patch('auth/', user)
+        commit('setAuthUser', userResponse.data.data)
+        localStorage.setItem('client', userResponse.headers['client'])
+        localStorage.setItem('uid', userResponse.headers['uid'])
+        localStorage.setItem('access-token', userResponse.headers['access-token'])
+
+        axios.defaults.headers.common['client'] = userResponse.headers['client']
+        axios.defaults.headers.common['uid'] = userResponse.headers['uid']
+        axios.defaults.headers.common['access-token'] = userResponse.headers['access-token']
+      } catch (err) {
+        console.error('Update user failed', err)
+        throw err
+      }
+    },
+    async deleteUser({ commit }, user) {
+      try {
+        const userResponse = await axios.delete('auth/', user)
+        commit('setAuthUser', null)
+        localStorage.removeItem('client')
+        localStorage.removeItem('uid')
+        localStorage.removeItem('access-token')
+
+        axios.defaults.headers.common['client'] = ''
+        axios.defaults.headers.common['uid'] = ''
+        axios.defaults.headers.common['access-token'] = ''
+      } catch (err) {
+        console.error('Delete user failed', err)
+        throw err
+      }
+    },
     //ユーザー情報の取得 or null
     async fetchAuthUser({ commit, state }) {
       if(!localStorage.getItem('access-token')) return null
@@ -102,33 +135,29 @@ export default {
         throw err
       }
     },
-    resetPasswordMail({ commit }, user) {
+    async resetPasswordMail({ commit }, { user, redirect_url }) {
       const resetPasswordParams = {
         email: user.email,
-        redirect_url: 'http://localhost:3000/password/edit'
+        redirect_url: redirect_url
       }
-      axios.post('auth/password', resetPasswordParams)
+      try {
+        await axios.post('auth/password', resetPasswordParams)
+      } catch (err) {
+        console.error('resetPasswordMail failed', err)
+        throw err
+      }
     },
     async updatePassword({ commit }, {user, headers}) {
-      const userResponse = await axios.put('auth/password',
-        {
-          password: user.password,
-          password_confirmation: user.password_confirmation,
-        },
-        {
-          headers: headers
-        }
-      )
-      // ログイン状態にする
-      localStorage.setItem('client', userResponse.headers['client'])
-      localStorage.setItem('uid', userResponse.headers['uid'])
-      localStorage.setItem('access-token', userResponse.headers['access-token'])
-
-      axios.defaults.headers.common['client'] = userResponse.headers['client']
-      axios.defaults.headers.common['uid'] = userResponse.headers['uid']
-      axios.defaults.headers.common['access-token'] = userResponse.headers['access-token']
-
-      commit('setAuthUser', userResponse.data.data)
+      const updatePasswordParams = {
+        password: user.password,
+        password_confirmation: user.password_confirmation,
+      }
+      try {
+        await axios.patch('auth/password', updatePasswordParams, {headers: headers})
+      } catch (err) {
+        console.error('updatePassword failed', err)
+        throw err
+      }
     }
   }
 }

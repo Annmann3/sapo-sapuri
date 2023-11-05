@@ -13,6 +13,7 @@ import PrivacyPolicy from '../pages/privacy-policy/index'
 import TermsOfService from '../pages/terms/index'
 import Notes from '../pages/notes/index'
 import LineIntegration from '../pages/line-integration/index'
+import MyPage from '../pages/my-page/index'
 
 
 const routes = [
@@ -80,6 +81,11 @@ const routes = [
     path: '/line-integration',
     component: LineIntegration,
     meta: { requiredAuth: false }
+  },
+  {
+    path: '/my-page',
+    component: MyPage,
+    meta: { requiredAuth: true }
   }
 ]
 
