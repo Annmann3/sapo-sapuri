@@ -17,6 +17,8 @@ import App from '../app.vue'
 import store from '../store/index'
 import router from '../router/index'
 import VueGtag from 'vue-gtag'
+const images = require.context('../images', true)
+const imagePath = (name) => images(name, true)
 
 const isProduction = process.env.NODE_ENV === 'production'
 const trackingId = isProduction ? 'G-2FJ7449S2L' : 'G-Q58RMCNKDK'
