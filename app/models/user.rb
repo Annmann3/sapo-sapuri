@@ -11,4 +11,7 @@ class User < ActiveRecord::Base
   has_many :authentications, dependent: :destroy
   has_one :nonce, dependent: :destroy
 
+  def line_linked?
+    authentications.find_by(provider: 'line').present?
+  end
 end

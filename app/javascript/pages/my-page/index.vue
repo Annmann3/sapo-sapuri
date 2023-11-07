@@ -11,17 +11,24 @@
             <h2 class="text-xl font-bold">ユーザー情報</h2>
             <hr class="my-3" />
             <div class="flex items-center">
-              <span>
+              <span class="text-3xl">
                 <i class="fas fa-user" />
               </span>
               <p class="ml-4 text-xl font-semibold">{{ user.name }}</p>
             </div>
             <div class="flex items-center">
-              <span>
+              <span class="text-3xl">
                 <i class="fas fa-envelope" />
               </span>
               <p v-if="user.email !== null" class="ml-4 text-xl font-semibold">{{ user.email }}</p>
               <p v-else class="ml-4 text-xl font-semibold">未設定</p>
+            </div>
+            <div class="flex items-center">
+              <span class="text-3xl fill-current text-green-500">
+                <i class="fab fa-line" />
+              </span>
+              <p v-if="user['line_linked?']" class="ml-4 text-xl font-semibold">連携済み</p>
+              <p v-else class="ml-4 text-xl font-semibold">未連携</p>
             </div>
           </div>
           <div class="flex my-2">
@@ -60,11 +67,11 @@
 
         <router-link
             :to="{ path: '/password' }"
-            class="text-base text-white text-right text-bold font-roboto leading-normal hover:underline mb-6"
+            class="text-base text-white text-right text-bold text-xl font-roboto leading-normal hover:underline mb-6"
             >
             パスワードを変更する
         </router-link>
-          <section>
+          <section v-if="!user['line_linked?']">
             <div class="bg-white p-4 rounded-lg shadow-md">
               <h2 class="text-xl font-semibold">LINE連携は公式アカウントから</h2>
               <hr class="my-3" />
@@ -78,12 +85,25 @@
                 </ol>
               </div>
             </div>
-            <BaseButton
-              :bgcolor="'bg-red-500 hover:bg-red-600'"
-              @click="deleteLineAccount"
-            >
-              LINEアカウント情報を削除する
-            </BaseButton>
+          </section>
+          <section v-else>
+            <div class="bg-white p-4 rounded-lg shadow-md">
+              <h2 class="text-xl font-semibold">LINEアカウントの情報を削除する</h2>
+              <hr class="my-3" />
+              <BaseButton
+                  :bgcolor="'bg-red-500 hover:bg-red-600'"
+                  @click="deleteLineAccount"
+                  >
+                  LINEアカウント情報を削除する
+              </BaseButton>
+              <div class="mt-3 p-4 bg-gray-50 rounded border-4 border-double border-gray-600">
+                <h3 class="text-xl font-semibold text-gray-700 mb-2">注意</h3>
+                <ol class="list-disc">
+                  <li>LINEアカウントを削除するにはメールアドレスとパスワードの登録が必要です</li>
+                  <li>メールアドレスを登録後に「パスワードを変更する」からパスワード設定してください</li>
+                </ol>
+              </div>
+            </div>
           </section>
       </div>
 </template>
@@ -146,5 +166,6 @@ const deleteLineAccount = async() => {
     store.commit('flashMessage/setFlashMessage', err.response)
   }
 }
+const userFast = computed(() => store.state.users.authUser)
 </script>
 
