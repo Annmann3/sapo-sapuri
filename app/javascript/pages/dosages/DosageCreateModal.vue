@@ -67,7 +67,6 @@
               >
                 登録
               </BaseButton>
-              <p>{{time}}</p>
             </div>
             <div class="text-center">
               <BaseButton
