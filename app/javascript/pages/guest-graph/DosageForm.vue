@@ -9,7 +9,6 @@
         v-model="dosageDate"
         :allowed-dates="allowedDates"
         ignore-time-validation
-        text-input
         :enable-time-picker="false"
         :format="format"
       />
@@ -18,7 +17,6 @@
       <label for="dosageTime" />
       <Datepicker
         v-model="dosageTime"
-        text-input
         time-picker
       />
     </div>
