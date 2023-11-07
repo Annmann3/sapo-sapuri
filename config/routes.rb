@@ -11,7 +11,8 @@ Rails.application.routes.draw do
       resources :dosages
       resources :user_graph, only: %i[index]
       resources :guest_user_graph, only: %i[create]
-      resources :line_integration, only: %i[create destroy]
+      resources :line_integration, only: %i[create]
+      resources :authentications, only: %i[destroy], param: :provider
       post 'liff_sign_in', to: 'liff_sessions#create'
       post 'callback', to: 'line_bot#callback'
     end

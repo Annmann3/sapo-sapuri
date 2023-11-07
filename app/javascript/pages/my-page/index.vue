@@ -69,16 +69,21 @@
               <h2 class="text-xl font-semibold">LINE連携は公式アカウントから</h2>
               <hr class="my-3" />
               <LineFriendAddButton />
-          <div class="p-4 bg-gray-50 rounded border-4 border-double border-gray-600">
-            <h3 class="text-xl font-semibold text-gray-700 mb-2">連携方法</h3>
-            <ol class="list-disc">
-              <li>ユーザー登録後に公式アカウントを友だち追加する</li>
-              <li>「アカウント連携する」ボタンを押して完了</li>
-              <li>メールアドレスで登録した方はその後に出てくる「連携する」を押してログインしてください</li>
-            </ol>
-          </div>
-
+              <div class="p-4 bg-gray-50 rounded border-4 border-double border-gray-600">
+                <h3 class="text-xl font-semibold text-gray-700 mb-2">連携方法</h3>
+                <ol class="list-disc">
+                  <li>ユーザー登録後に公式アカウントを友だち追加する</li>
+                  <li>「アカウント連携する」ボタンを押して完了</li>
+                  <li>メールアドレスで登録した方はその後に出てくる「連携する」を押してログインしてください</li>
+                </ol>
+              </div>
             </div>
+            <BaseButton
+              :bgcolor="'bg-red-500 hover:bg-red-600'"
+              @click="deleteLineAccount"
+            >
+              LINEアカウント情報を削除する
+            </BaseButton>
           </section>
       </div>
 </template>
@@ -86,9 +91,12 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 import LineFriendAddButton from 'components/LineFriendAddButton'
+import BaseButton from 'components/BaseButton'
 
 const store = useStore()
+const router = useRouter()
 
 const editedUser = ref({
   name: '',
@@ -117,11 +125,23 @@ const updateUser = () => {
     store.commit('flashMessage/setFlashMessage', err.response)
   }
 }
-const deleteUser = () => {
+const deleteUser = async() => {
   try {
     const result = confirm('本当に削除しますか？')
     if (!result) return
-    store.dispatch('users/deleteUser')
+    await store.dispatch('users/deleteUser')
+    router.push({ path: '/' })
+  } catch (err) {
+    store.commit('flashMessage/setFlashMessage', err.response)
+  }
+}
+
+const deleteLineAccount = async() => {
+  try {
+    const result = confirm('本当に削除しますか？')
+    if (!result) return
+    await store.dispatch('users/deleteSocialAccount', 'line')
+    router.push({ path: '/' })
   } catch (err) {
     store.commit('flashMessage/setFlashMessage', err.response)
   }
