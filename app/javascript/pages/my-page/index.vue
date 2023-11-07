@@ -69,6 +69,15 @@
               <h2 class="text-xl font-semibold">LINE連携は公式アカウントから</h2>
               <hr class="my-3" />
               <LineFriendAddButton />
+          <div class="p-4 bg-gray-50 rounded border-4 border-double border-gray-600">
+            <h3 class="text-xl font-semibold text-gray-700 mb-2">連携方法</h3>
+            <ol class="list-disc">
+              <li>ユーザー登録後に公式アカウントを友だち追加する</li>
+              <li>「アカウント連携する」ボタンを押して完了</li>
+              <li>メールアドレスで登録した方はその後に出てくる「連携する」を押してログインしてください</li>
+            </ol>
+          </div>
+
             </div>
           </section>
       </div>
