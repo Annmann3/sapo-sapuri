@@ -135,6 +135,14 @@ export default {
         throw err
       }
     },
+    async deleteSocialAccount({ commit }, provider) {
+      try {
+        await axios.delete(`authentications/${provider}`)
+      } catch (err) {
+        console.error('deleteLineAccount failed', err)
+        throw err
+      }
+    },
     async resetPasswordMail({ commit }, { user, redirect_url }) {
       const resetPasswordParams = {
         email: user.email,
