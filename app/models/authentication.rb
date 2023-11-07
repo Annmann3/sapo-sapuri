@@ -1,5 +1,5 @@
 class Authentication < ApplicationRecord
-  belongs_to :user, optional: true
+  belongs_to :user
 
   validates :provider, :uid, presence: true
   validates :uid, uniqueness: { scope: :provider }
