@@ -3,7 +3,7 @@ ARG APP_NAME=sapo-sapuri
 #使いたいrubyのimage名
 ARG RUBY_IMAGE=ruby:3.1.1
 #使いたいnode
-ARG NODE_VERSION='20'
+ARG NODE_VERSION='16'
 #インストールするbundlerのversionに置き換えてください
 ARG BUNDLER_VERSION=2.1.4
 
