@@ -43,7 +43,6 @@
               v-model="time" 
               uid="dosage_time"
               time-picker
-              text-input
               auto-apply
               class="leading-normal border-0 border-grey-light h-15 px-3 relative self-center font-roboto text-xl outline-none"
             />
@@ -99,8 +98,8 @@ const dosage = ref({
   dosage_at: new Date()
 });
 const time = ref({
-  hour: currentDateTime.getHours(),
-  minute: currentDateTime.getMinutes(),
+  hours: currentDateTime.getHours(),
+  minutes: currentDateTime.getMinutes(),
 });
 const date = ref(new Date());
 const options = [
@@ -119,8 +118,8 @@ const closeModal = () => {
 
 const submitDosage = () => {
   const dosageAt = new Date(date.value)
-  dosageAt.setHours(time.value.hour);
-  dosageAt.setMinutes(time.value.minute);
+  dosageAt.setHours(time.value.hours);
+  dosageAt.setMinutes(time.value.minutes);
 
   const dosageParams = {
     nutrient_id: dosage.value.nutrient_id,

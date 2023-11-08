@@ -5,13 +5,15 @@ Rails.application.routes.draw do
     namespace :v1 do
       mount_devise_token_auth_for 'User', at: 'auth', controllers: {
         registrations: 'api/v1/auth/registrations',
-        omniauth_callbacks: 'api/v1/auth/omniauth_callbacks'
+        omniauth_callbacks: 'api/v1/auth/omniauth_callbacks',
+        token_validations: 'api/v1/auth/token_validations'
       }
       resources :nutrients, only: %i[index show]
       resources :dosages
       resources :user_graph, only: %i[index]
       resources :guest_user_graph, only: %i[create]
-      resources :line_integration, only: %i[create destroy]
+      resources :line_integration, only: %i[create]
+      resources :authentications, only: %i[destroy], param: :provider
       post 'liff_sign_in', to: 'liff_sessions#create'
       post 'callback', to: 'line_bot#callback'
     end
