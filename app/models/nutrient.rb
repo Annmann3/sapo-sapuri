@@ -46,7 +46,7 @@ class Nutrient < ApplicationRecord
 
   # 服用してからt時間後の単位容量あたりの血中濃度
   def calculate_concentration(t)
-    vdf * ka * Math.exp(-ka * t) * t
+    ka * Math.exp(-ka * t) * t / vdf
   end
 
   def merge_duplicate_x(data)

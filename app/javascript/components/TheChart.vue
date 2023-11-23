@@ -83,8 +83,12 @@ export default {
             },
           },
           yAxis: {
-            display: false,
             beginAtZero: true,
+            title: {
+              display: true,
+              text: '血中濃度 (mg/L)',
+              textColor: 'rgb(235, 235, 235)'
+            },
           },
         },
       },
