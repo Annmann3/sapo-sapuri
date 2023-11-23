@@ -4,7 +4,7 @@ class Authentication < ApplicationRecord
   validates :provider, :uid, presence: true
   validates :uid, uniqueness: { scope: :provider }
 
-  def self.find_by_auth(auth)
+  def self.find_from_auth(auth)
     Authentication.where(
       provider: auth['provider'],
       uid: auth['uid']

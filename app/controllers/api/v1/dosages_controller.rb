@@ -16,7 +16,7 @@ class Api::V1::DosagesController < ApplicationController
       render json: {
         success: false,
         errors: @dosage.errors
-      }, status: 401
+      }, status: :unauthorized
     end
   end
 
@@ -27,7 +27,7 @@ class Api::V1::DosagesController < ApplicationController
       render json: {
         success: false,
         errors: @dosage.errors
-      }, status: 401
+      }, status: :unauthorized
     end
   end
 

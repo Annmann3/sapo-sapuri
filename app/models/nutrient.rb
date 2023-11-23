@@ -10,7 +10,7 @@ class Nutrient < ApplicationRecord
   validates :ke, numericality: true
 
   # 1分間隔の24時間の血中濃度の配列
-  def calculate_24hours(dosages, start = Time.now)
+  def calculate_24hours(dosages, start = Time.zone.now)
     (0...(24 * 60)).map do |n|
       {
         x: start + n.minute,
@@ -23,7 +23,7 @@ class Nutrient < ApplicationRecord
   def calculate_zero
     (0...(24 * 60)).map do |n|
       {
-        x: Time.now + n.minute - 12.hours,
+        x: Time.zone.now + n.minute - 12.hours,
         y: 0
       }
     end

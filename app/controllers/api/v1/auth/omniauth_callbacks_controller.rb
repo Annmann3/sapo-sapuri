@@ -29,7 +29,7 @@ class Api::V1::Auth::OmniauthCallbacksController < DeviseTokenAuth::OmniauthCall
   def get_resource_from_auth_hash
     # AuthEnticationモデルを介してuserを取得または作成する。
     # SNS連携済みの場合は,userを取得する
-    @authentication = Authentication.find_by_auth(auth_hash)
+    @authentication = Authentication.find_from_auth(auth_hash)
     if @authentication.user
       @resource = @authentication.user
     else

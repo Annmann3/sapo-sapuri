@@ -1,8 +1,6 @@
 class Api::V1::Auth::TokenValidationsController < DeviseTokenAuth::TokenValidationsController
   before_action :authenticate_api_v1_user!, only: [:destroy]
 
-
-
   protected
 
   # lineとの連携情報を入れる
