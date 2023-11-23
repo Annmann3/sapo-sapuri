@@ -13,7 +13,7 @@ class Api::V1::AuthenticationsController < ApplicationController
         data: {
           errors: ['メールアドレスとパスワードを設定してから連携を解除してください']
         }
-      }, status: 401
+      }, status: :unauthorized
     end
   end
 

@@ -4,8 +4,8 @@ class Api::V1::LineBotController < ApplicationController
 
   def client
     @client ||= Line::Bot::Client.new do |config|
-      config.channel_secret = ENV['LINE_MESSAGING_API_SECRET']
-      config.channel_token = ENV['LINE_MESSAGING_API_TOKEN']
+      config.channel_secret = ENV.fetch('LINE_MESSAGING_API_SECRET', nil)
+      config.channel_token = ENV.fetch('LINE_MESSAGING_API_TOKEN', nil)
     end
   end
 
@@ -26,17 +26,20 @@ class Api::V1::LineBotController < ApplicationController
       when Line::Bot::Event::Message
         case event.type
         when Line::Bot::Event::MessageType::Text
-          if event.message['text'] == 'LINE連携'
+          case event.message['text']
+          when 'LINE連携'
             if auth
               message = {
                 type: 'text',
                 text: '連携済みです'
               }
               # ユーザーのリッチメニューを変更
-              uri = URI.parse("https://api.line.me/v2/bot/user/#{user_id}/richmenu/#{ENV['LINE_MESSAGING_API_RICHMENU_ID']}")
+              uri = URI.parse("https://api.line.me/v2/bot/user/#{user_id}/richmenu/#{ENV.fetch(
+                'LINE_MESSAGING_API_RICHMENU_ID', nil
+              )}")
               request = Net::HTTP::Post.new(uri)
-              request['Authorization'] = "Bearer #{ENV['LINE_MESSAGING_API_TOKEN']}"
-              response = Net::HTTP.start(uri.host, uri.port) do |http|
+              request['Authorization'] = "Bearer #{ENV.fetch('LINE_MESSAGING_API_TOKEN', nil)}"
+              Net::HTTP.start(uri.host, uri.port) do |http|
                 http.request(request)
               end
               client.reply_message(event['replyToken'], message)
@@ -49,7 +52,7 @@ class Api::V1::LineBotController < ApplicationController
               client.reply_message(event['replyToken'], message)
               uri = URI.parse("https://api.line.me/v2/bot/user/#{user_id}/linkToken")
               request = Net::HTTP::Post.new(uri)
-              request['Authorization'] = "Bearer #{ENV['LINE_MESSAGING_API_TOKEN']}"
+              request['Authorization'] = "Bearer #{ENV.fetch('LINE_MESSAGING_API_TOKEN', nil)}"
               response = Net::HTTP.start(uri.host, uri.port) do |http|
                 http.request(request)
               end
@@ -57,40 +60,40 @@ class Api::V1::LineBotController < ApplicationController
               link_token = JSON(response.body)['linkToken']
 
               uri = URI.parse('https://api.line.me/v2/bot/message/push')
-              origin = ENV['RAILS_URL_ORIGIN']
+              origin = ENV.fetch('RAILS_URL_ORIGIN', nil)
               integration_uri = "#{origin}/line-integration?linkToken=#{link_token}"
 
               request = Net::HTTP::Post.new(uri)
               request.content_type = 'application/json'
-              request['Authorization'] = "Bearer #{ENV['LINE_MESSAGING_API_TOKEN']}"
+              request['Authorization'] = "Bearer #{ENV.fetch('LINE_MESSAGING_API_TOKEN', nil)}"
               request.body = JSON.dump({
-                to: user_id,
-                messages: [{
-                  type: 'text',
-                  text: '連携ボタンを押してください。',
-                  quickReply: {
-                    items: [
-                      {
-                        type: 'action',
-                        action: {
-                          type: 'uri',
-                          label: '連携する',
-                          uri: integration_uri
-                        }
-                      }
-                    ]
-                  }
-                }]
-              })
-              response = Net::HTTP.start(uri.host, uri.port) do |http|
+                                         to: user_id,
+                                         messages: [{
+                                           type: 'text',
+                                           text: '連携ボタンを押してください。',
+                                           quickReply: {
+                                             items: [
+                                               {
+                                                 type: 'action',
+                                                 action: {
+                                                   type: 'uri',
+                                                   label: '連携する',
+                                                   uri: integration_uri
+                                                 }
+                                               }
+                                             ]
+                                           }
+                                         }]
+                                       })
+              Net::HTTP.start(uri.host, uri.port) do |http|
                 http.request(request)
               end
             end
-          elsif event.message['text'] == '連携を解除する'
+          when '連携を解除する'
             uri = URI.parse("https://api.line.me/v2/bot/user/#{user_id}/richmenu")
             request = Net::HTTP::Delete.new(uri)
-            request['Authorization'] = "Bearer #{ENV['LINE_MESSAGING_API_TOKEN']}"
-            response = Net::HTTP.start(uri.host, uri.port) do |http|
+            request['Authorization'] = "Bearer #{ENV.fetch('LINE_MESSAGING_API_TOKEN', nil)}"
+            Net::HTTP.start(uri.host, uri.port) do |http|
               http.request(request)
             end
           end

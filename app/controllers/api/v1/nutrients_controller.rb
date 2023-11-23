@@ -5,6 +5,14 @@ class Api::V1::NutrientsController < ApplicationController
     render json: @nutrients
   end
 
+  def show
+    render json: @nutrient
+  end
+
+  def new; end
+
+  def edit; end
+
   def create
     @nutrient = Nutrient.new(nutrient_params)
     if @nutrient.save
@@ -14,21 +22,9 @@ class Api::V1::NutrientsController < ApplicationController
     end
   end
 
-  def new
-  end
+  def update; end
 
-  def edit
-  end
-
-  def show
-    render json: @nutrient
-  end
-
-  def update
-  end
-
-  def destroy
-  end
+  def destroy; end
 
   private
 
