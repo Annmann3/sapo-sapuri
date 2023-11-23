@@ -20,17 +20,9 @@ class Api::V1::LiffSessionsController < ApplicationController
       @resource = auth.user
       @token = @resource.create_token
       @resource.save
-      render json: {
-        success: true,
-        data: @resource
-      }, status: :ok
+      render_success(@resource)
     else
-      render json: {
-        success: false,
-        data: {
-          errors: ['認証情報が違います。']
-        }
-      }, status: :unauthorized
+      render_error_message('認証情報が違います。')
     end
   end
 
