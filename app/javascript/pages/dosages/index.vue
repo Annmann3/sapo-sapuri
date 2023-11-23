@@ -89,7 +89,7 @@ export default {
         await this.updateDosage(this.editDosage)
         this.handleCloseEditModal()
       } catch(err) {
-        console.log(err)
+        this.$store.commit('flashMessage/setFlashMessage', err.response)
       }
    },
     handleShowCreateModal() {
