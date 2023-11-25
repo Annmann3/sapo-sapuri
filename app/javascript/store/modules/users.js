@@ -1,3 +1,4 @@
+import {locale} from 'dayjs'
 import axios from '../../plugins/axios'
 
 export default {
