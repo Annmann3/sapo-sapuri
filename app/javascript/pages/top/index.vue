@@ -24,21 +24,23 @@
       </div>
       <div class="container mx-auto flex items-start grid grid-cols-1 md:grid-cols-2 gap-8 mt-3">
         <div class="p-4 bg-gray-50 rounded border-4 border-double border-gray-600">
-          <h3 class="text-xl font-semibold text-gray-700 mb-2">服用履歴を管理できます</h3>
+          <h3 class="text-xl font-semibold text-gray-700 mb-2">服用したビタミンCを記録できます</h3>
           <p class="text-xl text-gray-600">
-          飲んだビタミンCを記録することができます。<br>
-          ビタミンCは水溶性のため、継続して取らないと排出されてしまいます。<br>
-          一日に複数回に分けて取ることで、体にビタミンを満たしましょう<br>
+
+          飲んだビタミンCをこのアプリで手軽に記録できます。<br>
+          ビタミンCは水に溶けやすい性質があるので、1日に何度か分けて飲むと効果的です。<br>
+          毎日続けて摂ることで、ビタミンCをしっかりと満たしましょう。<br>
           </p>
         </div>
         <div class="p-4 bg-gray-50 rounded border-4 border-double border-gray-600 text-xl">
           <h3 class="font-semibold text-gray-700 mb-2">LINE連携</h3>
-          <p class="text-gray-600">飲んだらすぐに記録してグラフの確認をすることができます。</p>
-          <p class="text-gray-600">ユーザー登録後に公式アカウントから連携することができます</p>
+          <p class="text-gray-600">LINEから手軽に服用を記録、グラフの確認をすることができます。</p>
+          <p class="text-gray-600">ユーザー登録後に公式アカウントから連携することができます。</p>
         </div>
         <div class="flex-grow p-4 bg-gray-50 rounded border-4 border-double border-gray-600 text-xl">
-          <h3 class="text-xl font-semibold text-gray-700 mb-2">飲んだビタミンCの血中濃度がわかる</h3>
-          <p class="text-gray-600">どれだけビタミンCで満たされているかグラフでわかります。</p>
+          <h3 class="text-xl font-semibold text-gray-700 mb-2">ビタミンCの吸収量をグラフで確認できる</h3>
+          <p class="text-gray-600">
+          体にビタミンCがどれくらい満たされているのか、グラフでひと目で確認できます。</p>
         </div>
       </div>
     </section>
