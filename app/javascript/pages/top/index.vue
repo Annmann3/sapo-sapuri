@@ -45,6 +45,54 @@
       </div>
     </section>
 
+    
+    <section class="bg-gray-200 py-10">
+      <div class="container mx-auto">
+        <h2 class="text-3xl font-bold text-gray-800 text-center mb-4">ビタミンCについて</h2>
+      </div>
+      <div class="container mx-auto flex items-start grid grid-cols-1 md:grid-cols-2 gap-8 mt-3">
+        <div class="p-4 bg-gray-50 rounded border-4 border-double border-gray-600 text-xl">
+          <h3 class="font-semibold text-gray-700 mb-2">ビタミンCって何?</h3>
+          <p class="text-gray-600">
+          ビタミンCは、抗酸化作用があり、コラーゲンの合成に不可欠な栄養素です。
+          ビタミンCは体内で合成できないため、食事やサプリメントから摂取する必要があります。
+          </p>
+        </div>
+        <div class="p-4 bg-gray-50 rounded border-4 border-double border-gray-600 text-xl">
+          <h3 class="font-semibold text-gray-700 mb-2">どれくらいとればいいの?</h3>
+          <p class="text-gray-600">
+          1日に必要なビタミンCの量は、100mg。<br>
+          美容を意識するなら、1日に1000mg以上。<br>
+          多くのサプリメント製品では1回の摂取量が500mgなので、1日に２回以上摂っていきましょう。<br>
+          </p>
+        </div>
+        <div class="p-4 bg-gray-50 rounded border-4 border-double border-gray-600">
+          <h3 class="text-xl font-semibold text-gray-700 mb-2">ビタミンCの効果</h3>
+          <ul class="list-disc text-xl text-gray-700 ml-4">
+            <li class="mb-2">
+              コラーゲンの生成を助ける
+            </li>
+            <li class="mb-2">
+              美肌効果
+            </li>
+            <li class="mb-2">
+              疲労回復
+            </li>
+            <li class="mb-2">
+              抗酸化作用
+            </li>
+            <li class="mb-2">
+              免疫力アップ
+            </li>
+            <p class="text-gray-600 ">
+            ...etc
+            </p>
+
+          </ul>
+        </div>
+      </div>
+    </section>
+
 
     <section v-if="!authUser" class="bg-gray-200 py-10">
       <div class="container mx-auto text-center">
