@@ -8,7 +8,7 @@
     </section>
 
 
-    <section class="text-center py-10">
+    <section v-if="!authUser" class="text-center py-10">
       <BaseButton
         :bgcolor="'bg-blue-400 hover:bg-blue-500'"
         @click="goToGuestGraphPage"
@@ -44,7 +44,7 @@
     </section>
 
 
-    <section class="bg-gray-200 py-10">
+    <section v-if="!authUser" class="bg-gray-200 py-10">
       <div class="container mx-auto text-center">
         <h2 class="text-3xl font-bold text-gray-800 mb-4">こんな人におすすめ</h2>
       <div class="container mx-auto mt-3 bg-gray-50 text-center md:w-1/2 border-4 border-double border-black border-opacity-50">
@@ -72,6 +72,11 @@ export default {
     return {
       imageTop: imageTop,
     }
+  },
+  computed: {
+    authUser() {
+      return this.$store.getters['users/authUser']
+    },
   },
   methods: {
     goToGuestGraphPage() {
