@@ -11,8 +11,9 @@ class Api::V1::LineBotController < ApplicationController
 
     events = client.parse_events_from(body)
     events.each do |event|
-      @line_api = LineApiRequest.new(event['source']['userId'])
+      user_id = event['source']['userId']
       reply_token = event['replyToken']
+      @line_api = Api::LineApiRequest.new(user_id)
       auth = Authentication.find_by(provider: 'line', uid: user_id)
 
       case event
@@ -27,7 +28,6 @@ class Api::V1::LineBotController < ApplicationController
             else
               # 連携URLを送信
               reply_text_message(reply_token, "連携を開始します。\nしばらくお待ち下さい。")
-              client.reply_message(event['replyToken'], message)
               @line_api.push_integration_message
             end
           when '連携を解除する'
@@ -38,7 +38,7 @@ class Api::V1::LineBotController < ApplicationController
         if event.result == 'ok'
           nonce = Nonce.find_by(val: event.nonce)
           user = nonce.user
-          user.authentications.create(provider: 'line', uid: event['source']['userId'])
+          user.authentications.create(provider: 'line', uid: user_id)
           reply_text_message(reply_token, '連携が完了しました。')
         else
           reply_text_message(reply_token, '連携に失敗しました。')
