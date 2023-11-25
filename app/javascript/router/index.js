@@ -100,9 +100,6 @@ router.beforeEach( (to, from, next) => {
     .then((authUser) => {
       if(to.meta.requiredAuth && !authUser){
         next({ path: '/login' })
-      }else if(to.path === '/' && authUser){ 
-        // ログイン済みの場合はトップページに遷移させない
-        next({ path: '/graph' })
       }else{
         next()
       }
