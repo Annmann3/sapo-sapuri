@@ -1,4 +1,5 @@
 class Nutrient < ApplicationRecord
+  include CommonConsts
   has_many :dosages
 
   validates :name, presence: true, uniqueness: true, length: { maximum: 30 }
@@ -42,9 +43,18 @@ class Nutrient < ApplicationRecord
     merge_duplicate_x(data)
   end
 
+  # 最後の服用からGOAL_SPAN時間後の達成判定する下限値
+  def calculate_goal(dosage)
+    goal_span_in_hours = (CommonConsts::GOAL_SPAN / 3600.0).to_f
+    {
+      x: dosage.at_min + CommonConsts::GOAL_SPAN,
+      y: dosage.amount * calculate_concentration(goal_span_in_hours)
+    }
+  end
+
   private
 
-  # 服用してからt時間後の単位容量あたりの血中濃度
+  # 服用してからt時間後の単位服用量あたりの血中濃度
   def calculate_concentration(t)
     ka * Math.exp(-ka * t) * t / vdf
   end

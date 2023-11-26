@@ -8,7 +8,11 @@ class Api::V1::UserGraphController < ApplicationController
     if dosages.blank?
       render json: Nutrient.find(1).calculate_zero
     else
-      render json: Nutrient.find(1).calculate_combined_24hours(dosages)
+      render json: {
+        graph_data: Nutrient.find(1).calculate_combined_24hours(dosages),
+        goal: Nutrient.find(1).calculate_goal(dosages.last_dosage),
+        achievement_rate: Dosage.weekly_achievement_rate(current_api_v1_user)
+      }
     end
   end
 end
