@@ -18,7 +18,7 @@
 <script>
 import TheChart from '../../components/TheChart'
 import DosageForm from './DosageForm'
-import { mapActions, mapState } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'GraphIndex',
@@ -29,12 +29,6 @@ export default {
       chartData: [],
       nutrient: {id: 1, name: 'ビタミンC'},
     }
-  },
-  computed: {
-    ...mapState({
-      dosageList: state => state.dosages.dosageList,
-      
-    }),
   },
   async mounted() {
     this.loaded = false
