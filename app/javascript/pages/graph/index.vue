@@ -41,8 +41,10 @@ export default {
     }
   },
   methods: {
-    ...mapActions('graph', ['getUserGraphData']),
-    ...mapActions('dosages', ['createDosage']),
+    ...mapActions({
+      getUserGraphData: 'graph/getUserGraphData',
+      createDosage: 'dosages/createDosage',
+    }),
     async handleCreateDosage(dosage) {
       try {
         await this.$store.dispatch('dosages/createDosage', dosage)
