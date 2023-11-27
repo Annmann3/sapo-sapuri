@@ -3,14 +3,20 @@ import axios from '../../plugins/axios'
 export default {
   namespaced: true,
   state: () => ({
-    dataList: null
+    dataList: null,
+    goalData: null,
+    archivementRate: null,
   }),
   getters: {
-    dataList: state => state.dataList
+    dataList: state => state.dataList,
+    goalData: state => state.goalData,
+    achievementRate: state => Math.round(state.achievementRate * 10) / 10, 
   },
   mutations: {
-    setDataList(state, data) {
-      state.dataList = data
+    setData(state, data) {
+      state.dataList = data.graph_data
+      state.goalData = data.goal
+      state.achievementRate = data.achievement_rate
     }
   },
   actions: {
@@ -20,14 +26,14 @@ export default {
           console.log(err)
           return null
         })
-      commit('setDataList', graphResponse.data)
+      commit('setData', graphResponse.data)
       return graphResponse.data
     },
     async getUserGraphData({ commit }) {
       try {
         const graphResponse = await axios.get('user_graph')
-        commit('setDataList', graphResponse.data)
-        return graphResponse.data
+        commit('setData', graphResponse.data)
+        return graphResponse.data.graph_data
       } catch (err) {
         console.error('Get users graph data failed', err)
         throw err
