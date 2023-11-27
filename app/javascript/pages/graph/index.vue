@@ -5,6 +5,7 @@
       v-if="loaded"
       :chart-data="chartData"
       :nutrient-name="nutrient.name"
+      :goal-data="goalData"
     />
     <div class="self-center mt-6 md:mt-0 md:ml-6">
       <DosageForm

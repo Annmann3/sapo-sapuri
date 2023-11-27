@@ -16,6 +16,7 @@
     "babel-loader": "^8.2.5",
     "chart.js": "^3.9.1",
     "chartjs-adapter-moment": "^1.0.0",
+    "chartjs-plugin-annotation": "2.1.1",
     "compression-webpack-plugin": "^10.0.0",
     "css-loader": "^6.7.1",
     "css-minimizer-webpack-plugin": "^4.0.0",
