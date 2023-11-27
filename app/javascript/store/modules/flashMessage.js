@@ -2,7 +2,7 @@ export default {
   namespaced: true,
   state: {
     isFlashMessage: false,
-    message: null,
+    messages: [],
     success: null,
     timeout: 5000,
   },
@@ -11,22 +11,17 @@ export default {
       const data = response.data
       state.isFlashMessage = true
       state.success = data.success
-
-      if(typeof data.errors === 'object'){
-        state.message = data.data.errors.full_messages[0]
-      } else {
-        state.message = data.data.errors[0]
-      }
+      state.messages = data.errors
       
       setTimeout(() => {
         state.isFlashMessage = false
-        state.message = null
+        state.messages = []
         state.success = null
       }, state.timeout)
     },
     clearFlashMessage(state) {
       state.isFlashMessage = false
-      state.message = null
+      state.messages = []
       state.success = null
     },
   },

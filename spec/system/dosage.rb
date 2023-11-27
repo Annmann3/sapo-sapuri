@@ -28,8 +28,8 @@ RSpec.describe '服用記録', type: :system, js: true do
         expect(page).to have_content '服用登録'
         expect(page).to have_content 'ビタミンC'
         # 現在時刻が入力済みであることを確認
-        expect(find('#dp-input-dosage_date').value).to eq Time.now.strftime('%Y/%m/%d')
-        expect(find('#dp-input-dosage_time').value).to have_content Time.now.strftime('%H:%M')
+        expect(find('#dp-input-dosage_date').value).to eq Time.zone.now.strftime('%Y/%m/%d')
+        expect(find('#dp-input-dosage_time').value).to have_content Time.zone.now.strftime('%H:%M')
       end
       it '各項目を入力後に服用登録ボタン押すと、入力フォームが消えて服用記録が登録されている' do
         visit '/dosages'

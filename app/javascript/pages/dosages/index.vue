@@ -67,12 +67,6 @@ export default {
   },
   computed: {
     ...mapGetters('dosages', ['dosageList']),
-    sortedDosages() {
-      let sorteDosages = [...this.dosageList] //stateを変更しないように
-      return sorteDosages.sort((a, b) => {
-        return a.dosage_at < b.dosage_at
-      })
-    },
   },
   mounted() {
     this.fetchDosages()
@@ -95,7 +89,7 @@ export default {
         await this.updateDosage(this.editDosage)
         this.handleCloseEditModal()
       } catch(err) {
-        console.log(err)
+        this.$store.commit('flashMessage/setFlashMessage', err.response)
       }
    },
     handleShowCreateModal() {
@@ -109,7 +103,6 @@ export default {
         await this.createDosage(dosage)
         this.handleCloseCreateModal()
       } catch(err) {
-        debugger
         this.$store.commit('flashMessage/setFlashMessage', err.response)
       }
     },

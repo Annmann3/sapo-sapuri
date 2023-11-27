@@ -102,7 +102,7 @@ export default {
     const allowedDates = computed(() => {
       const yesterday = new Date(new Date().setDate(new Date().getDate() - 1))
       const tommorow = new Date(new Date().setDate(new Date().getDate() + 1))
-      return [yesterday, tommorow]
+      return [yesterday, new Date(), tommorow]
     })
 
     const formatDosage = () => {

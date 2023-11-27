@@ -8,8 +8,12 @@
 </template>
 <script>
 import { Line } from 'vue-chartjs'
+import { Chart } from 'chart.js'
 import 'chart.js/auto'
 import 'chartjs-adapter-moment'
+import annotationPlugin from 'chartjs-plugin-annotation'
+
+Chart.register(annotationPlugin)
 
 const isFuture = (ctx, value) => ctx.p0.parsed.x > new Date() ? value : undefined
 
@@ -32,6 +36,10 @@ export default {
         }
       },
     },
+    goalData: {
+      type: Object,
+      required: true,
+    }
   },
   data() {
     return {
@@ -83,16 +91,58 @@ export default {
             },
           },
           yAxis: {
-            display: false,
             beginAtZero: true,
+            title: {
+              display: true,
+              text: '血中濃度 (mg/L)',
+              textColor: 'rgb(235, 235, 235)'
+            },
           },
         },
+        // 横軸の目安線
+        plugins: {
+          annotation: {
+            annotations: [
+              {
+                type: 'line',
+                mode: 'horizontal',
+                scaleID: 'yAxis',
+                value: this.goalData.y,
+                borderColor: 'black',
+                borderWidth: 1,
+                label: {
+                  display: true,
+                  content: '基準ライン',
+                  backgroundColor: 'gray',
+                  position: 'start'
+                },
+              },
+              // 現在時刻の値
+              {
+                type: 'line',
+                mode: 'horizontal',
+                scaleID: 'yAxis',
+                value: 0,
+                borderColor: 'green',
+                borderWidth: 2,
+                label: {
+                  display: true,
+                  content: '',
+                  backgroundColor: 'blue',
+                  opacity: 0.1
+                }
+              }
+            ]
+          }
+        },
       },
+    currentValue: {},
     }
   },
   mounted() {
     this.chartObj.datasets[0].data = this.sortChartData(this.chartData)
     this.chartObj.datasets[1].data = [{x: new Date(), y: Math.max(...this.chartData.map(d => d.y))}];
+    this.checkGoal()
   },
   methods: {
     sortChartData(data) {
@@ -101,7 +151,35 @@ export default {
         return new Date(a.x) - new Date(b.x)
       })
     },
+    checkGoal() {
+      const goalData = this.goalData.y;
+
+      const chartDataSet = this.chartObj.datasets[0].data;
+      const currentTimeStamp = Math.floor(Date.now() / 1000);
+      // 現在時刻に最も近い値のデータを探する
+      const currentDataPoint = chartDataSet.reduce((closest, data) => {
+        const dataTimeStamp = Math.floor(new Date(data.x).getTime() / 1000)
+        const closestTimeStamp = Math.floor(new Date(closest.x).getTime() / 1000)
+        return Math.abs(currentTimeStamp - dataTimeStamp) < Math.abs(currentTimeStamp - closestTimeStamp) ? data : closest
+
+      }, chartDataSet[0])
+
+      const isGoalExceeded = currentDataPoint.y < goalData
+      const goalAnnotaion = this.chartOptions.plugins.annotation.annotations[1]
+      const currentValue = currentDataPoint.y
+      if (isGoalExceeded) {
+        goalAnnotaion.borderColor = 'red'
+        goalAnnotaion.label.content = '不足'
+        goalAnnotaion.label.backgroundColor = 'red'
+        goalAnnotaion.value = currentValue
+      } else {
+        goalAnnotaion.borderColor = 'black'
+        goalAnnotaion.label.content = 'Good!!'
+        goalAnnotaion.label.backgroundColor = 'green'
+        goalAnnotaion.value = currentValue
+
+      }
+    },
   },
 }
 </script>
-

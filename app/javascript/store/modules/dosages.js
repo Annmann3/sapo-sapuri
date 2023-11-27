@@ -41,7 +41,7 @@ export default {
     async createDosage({ commit }, dosage) {
       try{
         const dosageResponse = await axios.post('dosages', dosage)
-        commit('addDosage', dosageResponse.data)
+        commit('addDosage', dosageResponse.data.data)
       } catch (err) {
         console.error(err)
         throw err
@@ -50,7 +50,7 @@ export default {
     async updateDosage({ commit }, dosage) {
       try {
         const dosageResponse = await axios.patch(`dosages/${dosage.id}`, dosage)
-        commit('updateDosage', dosageResponse.data)
+        commit('updateDosage', dosageResponse.data.data)
       } catch (err) {
         console.error(err)
         throw err
@@ -59,7 +59,7 @@ export default {
     deleteDosage({ commit }, dosage) {
       axios.delete(`dosages/${dosage.id}`)
         .then((res) => {
-          commit('deleteDosage', res.data)
+          commit('deleteDosage', res.data.data)
         })
         .catch((err) => {
           console.log(err)

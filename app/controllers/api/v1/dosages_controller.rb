@@ -11,29 +11,23 @@ class Api::V1::DosagesController < ApplicationController
     @dosage = current_api_v1_user.dosages.build(dosage_params)
 
     if @dosage.save
-      render json: @dosage
+      render_success(@dosage)
     else
-      render json: {
-        success: false,
-        errors: @dosage.errors
-      }, status: 401
+      render_error(@dosage)
     end
   end
 
   def update
     if @dosage.update(dosage_params)
-      render json: @dosage
+      render_success(@dosage)
     else
-      render json: {
-        success: false,
-        errors: @dosage.errors
-      }, status: 401
+      render_error(@dosage)
     end
   end
 
   def destroy
     @dosage.destroy!
-    render json: @dosage
+    render_success(@dosage)
   end
 
   private

@@ -1,5 +1,5 @@
 class Api::V1::LiffSessionsController < ApplicationController
-require 'net/http'
+  require 'net/http'
 
   def create
     uri = URI.parse('https://api.line.me/oauth2/v2.1/verify')
@@ -7,7 +7,7 @@ require 'net/http'
     request.content_type = 'application/x-www-form-urlencoded'
     request.set_form_data(
       'id_token' => liff_session_params[:id_token],
-      'client_id' => ENV['LINE_CLIENT_ID']
+      'client_id' => ENV.fetch('LINE_CLIENT_ID', nil)
     )
     response = Net::HTTP.start(uri.hostname, uri.port) do |http|
       http.request(request)
@@ -20,17 +20,9 @@ require 'net/http'
       @resource = auth.user
       @token = @resource.create_token
       @resource.save
-      render json: {
-        success: true,
-        data: @resource,
-      }, status: 200
+      render_success(@resource)
     else
-      render json: {
-        success: false,
-        data: {
-          errors: ['認証情報が違います。']
-        }
-      }, status: 401
+      render_error_message('認証情報が違います。')
     end
   end
 
