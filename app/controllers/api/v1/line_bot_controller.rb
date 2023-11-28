@@ -1,5 +1,6 @@
 class Api::V1::LineBotController < ApplicationController
   require 'line/bot'
+  require 'api/line_api_request'
 
   def callback
     body = request.body.read
