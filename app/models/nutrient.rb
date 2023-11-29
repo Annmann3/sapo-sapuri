@@ -31,8 +31,11 @@ class Nutrient < ApplicationRecord
   end
 
   def calculate_combined_24hours(dosages)
+    dosages_in_24hours = dosages.in_24hours
+    return calculate_zero if dosages_in_24hours.blank?
+
     data = []
-    dosages.each do |dosage|
+    dosages_in_24hours.each do |dosage|
       data += (0...(24 * 60)).map do |n|
         {
           x: dosage.at_min + n.minute,
@@ -43,8 +46,10 @@ class Nutrient < ApplicationRecord
     merge_duplicate_x(data)
   end
 
-  # 最後の服用からGOAL_SPAN時間後の達成判定する下限値
+  # 服用からGOAL_SPAN時間後の基準値と到達時間
   def calculate_goal(dosage)
+    return { x: nil, y: nil } unless dosage
+
     goal_span_in_hours = (CommonConsts::GOAL_SPAN / 3600.0).to_f
     {
       x: dosage.at_min + CommonConsts::GOAL_SPAN,
