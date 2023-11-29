@@ -38,7 +38,13 @@ export default {
     },
     goalData: {
       type: Object,
-      required: true,
+      required: false,
+      default() {
+        return {
+          x: null,
+          y: 0,
+        }
+      }
     }
   },
   data() {
@@ -150,8 +156,10 @@ export default {
       return data.slice().sort((a, b) => {
         return new Date(a.x) - new Date(b.x)
       })
+
     },
     checkGoal() {
+      if (!this.goalData.y) return
       const goalData = this.goalData.y;
 
       const chartDataSet = this.chartObj.datasets[0].data;

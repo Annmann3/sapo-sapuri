@@ -23,7 +23,7 @@
         />
       <p class="text-xl font-bold text-gray-800 text-center my-4">基準ラインより上を維持しよう</p>
     </div>
-    <div class="my-8">
+    <div v-if="goalData.x" class="my-8">
       <h3 class="text-2xl font-bold text-gray-800 text-center my-6 ">次のライン到達時刻</h3>
       <p class="text-xl font-bold text-gray-800 text-center mb-4">{{ goalTime }}</p>
     </div>
@@ -62,6 +62,8 @@ export default {
       goalData: 'graph/goalData',
     }),
     goalTime() {
+      if (!this.goalData.x) return null
+
       const goalTime = this.goalData.x
       const day = goalTime.split('T')[0].slice(8,10)
       const goalHour = goalTime.split('T')[1].slice(0,2)
