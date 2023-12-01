@@ -24,8 +24,7 @@
       <p class="text-xl font-bold text-gray-800 text-center my-4">基準ラインより上を維持しよう</p>
     </div>
     <div v-if="goalData.x" class="my-8">
-      <h3 class="text-2xl font-bold text-gray-800 text-center my-6 ">次のライン到達時刻</h3>
-      <p class="text-xl font-bold text-gray-800 text-center mb-4">{{ goalTime }}</p>
+      <p class="text-xl font-bold text-gray-800 text-center mb-4">{{ goalTime }} までに飲めば目標達成!!</p>
     </div>
   </section>
 </template>

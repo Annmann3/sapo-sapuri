@@ -1,18 +1,46 @@
 <template>
     <header class="md:flex md:justify-center">
-      <nav class="z-10 text-white w-full fixed top-0 bg-yellow-300 shadow md:rounded-b-2xl md:flex md:justify-between opacity-95">
-        <div class="flex justify-between md:flex-none items-center h-16 px-2">
+      <nav class="z-10 text-black w-full fixed top-0 bg-yellow-300 shadow md:rounded-b-2xl opacity-95">
+        <div class="flex items-center h-16 px-2">
           <div class="">
             <router-link
-              class="text-3xl font-semibolid md:text-3xl"
+              class="text-3xl text-white font-semibolid md:text-3xl"
               :to="{ path: '/' }"
             >
               SAPO-C
             </router-link>
           </div>
-          <div class="">
+          <div class="flex-grow text-center md:text-right">
+              <router-link
+                v-if="authUser"
+                class="px-8 py-4 mx-4 invisible md:visible hover:bg-yellow-500 rounded"
+                :to="{ path: '/graph' }"
+                @click="isOpen = false"
+              >
+                グラフ
+              </router-link>
+
+              <router-link
+                v-if="!authUser"
+                class="px-8 py-4 invisible md:visible hover:bg-yellow-500 rounded"
+                :to="{ path: '/login' }"
+                @click="isOpen = false"
+              >
+                ログイン
+              </router-link>
+              <router-link
+                v-if="!authUser"
+                class="px-8 py-4 invisible md:visible hover:bg-yellow-500 rounded"
+                :to="{ path: '/register' }"
+                @click="isOpen = false"
+              >
+                新規登録
+              </router-link>
+          </div>
+          <div
+              :class="!authUser ? 'block md:hidden' : ''"
+            >
             <button
-              class="md:hidden"
               @click="isOpen = !isOpen"
             >
               <svg
@@ -32,15 +60,14 @@
           </div>
         </div>
         <div
-          :class="isOpen ? '' : 'hidden'"
-          class="left-0 md:block md:mt-0"
+          v-show="isOpen"
+          class="left-0 md:mt-0"
         >
           <ul
-            class="md:flex md:justify-end"
           >
             <li 
               v-if="!authUser"
-              class="border-b-2 border-t-2 border-color-white md:border-none"
+              class="border-b-2 border-color-white"
             >
               <router-link
                 class="block px-8 py-4 hover:bg-yellow-500 rounded"
@@ -52,7 +79,7 @@
             </li>
             <li
               v-if="!authUser"
-              class="border-b-2 md:border-none"
+              class="border-b-2 "
             >
               <router-link
                 class="block px-8 py-4 hover:bg-yellow-500 rounded"
@@ -64,54 +91,7 @@
             </li>
             <li
               v-if="authUser"
-              class="border-b border-t visible md:invisible md:border-none"
-            >
-              <router-link
-                class="block px-8 py-4 hover:bg-yellow-500 rounded"
-                :to="{ path: '/my-page' }"
-                @click="isOpen = false"
-              >
-                マイページ
-              </router-link>
-            </li>
-            <!-- プロフィール画像がなければテキスト-->
-            <li
-              v-if="authUser"
-              class="border-b hidden md:block md:border-none hover:bg-yellow-500"
-            >
-              <router-link
-                class="block hover:bg-yellow-500 rounded"
-                :to="{ path: '/my-page' }"
-                @click="isOpen = false"
-              >
-                <img
-                  v-if="authUser.image !== null"
-                  class="rounded-full h-12 w-12 object-cover"
-                  :src="authUser.image"
-                  alt="プロフィール画像"
-                />
-                <p
-                  v-else
-                  class="block px-8 py-4 hover:bg-yellow-500 rounded"
-                  >マイページ
-                </p>
-              </router-link>
-            </li>
-            <li
-              v-if="authUser"
-              class="border-b md:border-none hover:bg-yellow-500"
-            >
-              <router-link
-                class="block px-8 py-4 rounded"
-                :to="{ path: '/dosages' }"
-                @click="isOpen = false"
-              >
-                服用履歴
-              </router-link>
-            </li>
-            <li
-              v-if="authUser"
-              class="border-b md:border-none hover:bg-yellow-500"
+              class="border-t md:hidden hover:bg-yellow-500"
             >
               <router-link
                 class="block px-8 py-4 hover:bg-yellow-500 rounded"
@@ -123,7 +103,31 @@
             </li>
             <li
               v-if="authUser"
-              class="border-b md:border-none hover:bg-yellow-500"
+              class="border-b border-t"
+            >
+              <router-link
+                class="block px-8 py-4 hover:bg-yellow-500 rounded"
+                :to="{ path: '/my-page' }"
+                @click="isOpen = false"
+              >
+                マイページ
+              </router-link>
+            </li>
+            <li
+              v-if="authUser"
+              class="border-b hover:bg-yellow-500"
+            >
+              <router-link
+                class="block px-8 py-4 rounded"
+                :to="{ path: '/dosages' }"
+                @click="isOpen = false"
+              >
+                服用履歴
+              </router-link>
+            </li>
+            <li
+              v-if="authUser"
+              class="border-b hover:bg-yellow-500"
             >
               <button
                 class="px-6 py-4 rounded"
