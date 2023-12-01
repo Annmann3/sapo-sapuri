@@ -1,10 +1,10 @@
 <template>
     <header class="md:flex md:justify-center">
-      <nav class="z-10 text-white w-full fixed top-0 bg-yellow-300 shadow md:rounded-b-2xl md:flex md:justify-between opacity-95">
+      <nav class="z-10 text-black w-full fixed top-0 bg-yellow-300 shadow md:rounded-b-2xl md:flex md:justify-between opacity-95">
         <div class="flex justify-between md:flex-none items-center h-16 px-2">
           <div class="">
             <router-link
-              class="text-3xl font-semibolid md:text-3xl"
+              class="text-3xl text-white font-semibolid md:text-3xl"
               :to="{ path: '/' }"
             >
               SAPO-C
