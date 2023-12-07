@@ -31,7 +31,7 @@ RSpec.describe 'グラフ機能', type: :system, js: true do
         visit '/graph'
         click_button '服用'
         expect(page).to have_selector('canvas#line-chart')
-        expect(page).to have_content('次のライン到達時刻')
+        expect(page).to have_content('までに飲めば目標達成!!')
         expect(page).to have_content(9.hours.from_now.strftime('%H:%M'))
       end
     end
