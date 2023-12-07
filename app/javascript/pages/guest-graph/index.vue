@@ -67,7 +67,7 @@
 <script>
 import { mapActions } from 'vuex'
 import TheChart from '../../components/TheChart'
-import DosageForm from './DosageForm'
+import DosageForm from '../../components/DosageForm'
 import imageGraph from 'images/graph_intro.png'
 import imageIphone from 'images/iphone.png'
 
@@ -102,9 +102,10 @@ export default {
         console.log(error)
       }
     },
-    changeGraphParams(date, dosageAmount) {
-      this.graphParams.dosage_at = date
-      this.graphParams.amount = dosageAmount
+    changeGraphParams(dosage) {
+      debugger
+      this.graphParams.dosage_at = dosage.dosage_at
+      this.graphParams.amount = dosage.amount
       this.$gtag.event('draw_guest_graph', {
         event_category: 'engagement',
         event_label: 'draw_guest_graph'
