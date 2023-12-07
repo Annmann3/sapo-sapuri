@@ -31,7 +31,7 @@
 
 <script>
 import TheChart from '../../components/TheChart'
-import DosageForm from './DosageForm'
+import DosageForm from '../../components/DosageForm'
 import TheGauge from '../../components/TheGauge'
 import { mapActions, mapGetters } from 'vuex'
 
