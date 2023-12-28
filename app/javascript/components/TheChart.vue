@@ -42,7 +42,7 @@ export default {
       default() {
         return {
           x: null,
-          y: 0,
+          y: null,
         }
       }
     }
@@ -185,7 +185,6 @@ export default {
         goalAnnotaion.label.content = 'Good!!'
         goalAnnotaion.label.backgroundColor = 'green'
         goalAnnotaion.value = currentValue
-
       }
     },
   },
