@@ -66,4 +66,5 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   # ログインメソッド
   config.include LoginMacros, type: :system
+  config.include AuthorizationHelper, type: :request
 end
