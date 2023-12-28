@@ -9,7 +9,7 @@ class Dosage < ApplicationRecord
 
   scope :last_dosage, -> { order(dosage_at: :desc).first }
   scope :in_24hours, -> { where(dosage_at: 24.hours.ago..Time.zone.now) }
-  scope :in_week_asc, -> { where(dosage_at: 1.week.ago..Time.zone.now) && order(dosage_at: :asc) }
+  scope :in_week_asc, -> { where(dosage_at: 1.week.ago..Time.zone.now).order(dosage_at: :asc) }
 
   # 服用時間の分単位に切り捨て
   def at_min
