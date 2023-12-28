@@ -1,0 +1,6 @@
+inherit_from: ../.rubocop.yml
+
+Style/HashSyntax:
+  EnforcedShorthandSyntax: either
+Metrics/BlockLength:
+  Enabled: false
