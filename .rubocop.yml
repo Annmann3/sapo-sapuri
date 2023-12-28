@@ -1,0 +1,20 @@
+inherit_from: ~/.rbenv/versions/3.1.1/lib/ruby/gems/3.1.0/gems/rubocop-1.43.0/config/default.yml
+
+require:
+  - rubocop-performance
+  - rubocop-rails
+AllCops:
+  NewCops: enable
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/IfUnlessModifier:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Style/ClassAndModuleChildren:
+  Enabled: false
+Style/SingleLineDoEndBlock:
+  Enabled: false
